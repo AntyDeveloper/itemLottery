@@ -1,0 +1,37 @@
+settings:
+  #Annoucment on plugin update?
+  updateChecker: true
+  #Player can create lottery?
+  playerLotteryUse: false
+  #Set player cooldown on use lottery create in seconds
+  cooldownTime: 300
+  #Display item type in broadcast message?
+  itemTypeDisplay: false
+
+  Messages:
+    Prefix: "&7[&9Lottery&7]"
+    Usage: "&8» &cUsage: &7/lottery create/history/end &f"
+    Permissions: "&8» &cYou don't have permission!"
+    Cooldown: "&8» &9Cooldown remaining time to create lottery &7%time%"
+    LotteryCommandArgs:
+      ItemInHand: "&8» &cYou must have item in hand!"
+      Time: "&8» &cYou must set lottery time in seconds and time must be longer than 60 seconds!"
+      CommandRun: "&8» &9Is currently on!"
+      LogNotFound: "&8» &9Log is not found!"
+      ForeEndBroadcast: "&8» &9Lottery has been force ended!"
+      ForceEnd: "&8» &9You have completed the lotteries!"
+      Error: "&8» &cSomething's gone wrong"
+      ItemCount: "&8» &cThe number of item must be higher than 0."
+      ItemInHandCount: "&8» &cYou don't have enough of this item"
+      WinnerCount: "&8» &cYou must set an even number of wins."
+      ItemAndWinnerCount: "&8» The number of wins and the number of prizes must be divisible by each other"
+      LotteryNotActive: "&8» &cLottery is not active!"
+      NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to make the draw!"
+    Lottery:
+      StartTitle: "Lottery"
+      StartSubTitle: "&9&lHas been started!"
+      StartBroadCastMessage: "Has been started on %item_name%!"
+      BosBarTitle: "&aTime to lottery&7: %time%"
+      Title: "Lottery win"
+      WinMessage: "You are win the lottery!"
+      NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to make the draw!"

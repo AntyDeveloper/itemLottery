@@ -1,0 +1,29 @@
+name: ItemLottery
+version: '2.3'
+main: starify.itemlottery.ItemLottery
+api-version: '1.19'
+prefix: ItemLottery
+authors: [AspDev]
+website: starify.tech
+
+commands:
+  lottery:
+permissions:
+  lottery.admin:
+    description: Allows you to admin commands!
+    children:
+      lottery.bypass: true
+      lottery.create: true
+      lottery.history: true
+      lottery.playeruse: true
+  lottery.playeruse:
+    description: Allows player to create player lottery!
+  lottery.bypass:
+    description: Allows you to bypass player create lottery cooldown command!
+  lottery.create:
+    description: Allows you to admin lottery create command!
+    children:
+      lottery.playeruse: true
+      lottery.bypass: true
+  lottery.history:
+    description: Allows you to lottery history command!
