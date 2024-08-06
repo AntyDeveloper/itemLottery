@@ -1,12 +1,8 @@
-package starify.itemlottery.managers.vaultmanager;
+package acctualyplugins.itemlottery.managers.vaultmanager;
 
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.vaultmanager.utils.SetupEconomy;
-
-import static org.bukkit.Bukkit.getServer;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.vaultmanager.utils.SetupEconomy;
 
 /**
  * Manager class for handling Vault integration.

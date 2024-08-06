@@ -1,9 +1,9 @@
-package starify.itemlottery.managers.drawmanager.utils.logs;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.logs;
 
 import org.bukkit.configuration.ConfigurationSection;
-import starify.itemlottery.files.CreateLogsFile;
-import starify.itemlottery.managers.logmanager.LogManager;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 /**
  * Utility class for updating the logs with the lottery draw results.

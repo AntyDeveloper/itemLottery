@@ -1,4 +1,4 @@
-package starify.itemlottery.server.utils.messages;
+package acctualyplugins.itemlottery.server.utils.messages;
 
 
 import net.kyori.adventure.text.Component;

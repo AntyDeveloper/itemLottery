@@ -1,10 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.managers.cooldownsmanager.CooldownsManager;
-import starify.itemlottery.managers.cooldownsmanager.utils.SetCooldown;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.CooldownsManager;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 /**
  * Handler class for managing player cooldowns in the lottery system.

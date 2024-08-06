@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>starify</groupId>
+    <groupId>acctualyplugins</groupId>
     <artifactId>ItemLottery</artifactId>
     <version>2.3</version>
     <packaging>jar</packaging>
@@ -15,7 +15,7 @@
         <java.version>1.16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>starify.tech</url>
+    <url>acctualyplugins.eu</url>
 
     <build>
         <plugins>
@@ -39,18 +39,14 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <minimizeJar>true</minimizeJar>
+                    <minimizeJar>false</minimizeJar>
                     <relocations>
                         <relocation>
                             <pattern>dev.jorel.commandapi</pattern>
-                            <!-- TODO: Change this to my own package name -->
-                            <shadedPattern>starify.itemlottery.lib.commandapi</shadedPattern>
+                            <shadedPattern>acctualyplugins.itemlottery.lib.commandapi</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -85,11 +81,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-api</artifactId>
-            <version>4.17.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.34</version>
@@ -112,12 +103,6 @@
             <version>4.17.0</version>
         </dependency>
         <dependency>
-            <groupId>dev.jorel</groupId>
-            <artifactId>commandapi-bukkit-core</artifactId>
-            <version>9.5.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.17.0</version>
@@ -127,11 +112,16 @@
             <artifactId>commandapi-bukkit-shade</artifactId>
             <version>9.5.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

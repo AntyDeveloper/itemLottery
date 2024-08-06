@@ -1,16 +1,13 @@
-package starify.itemlottery.managers.cooldownsmanager;
+package acctualyplugins.itemlottery.managers.cooldownsmanager;
 
 import lombok.Getter;
-import starify.itemlottery.files.CreateCooldownsFile;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.cooldownsmanager.utils.GetTimeRemaining;
-import starify.itemlottery.managers.cooldownsmanager.utils.HasCooldown;
-import starify.itemlottery.managers.cooldownsmanager.utils.LoadCooldowns;
-import starify.itemlottery.managers.cooldownsmanager.utils.SaveCooldowns;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.GetTimeRemaining;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.HasCooldown;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.LoadCooldowns;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.SaveCooldowns;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Manages player cooldowns for the ItemLottery plugin.

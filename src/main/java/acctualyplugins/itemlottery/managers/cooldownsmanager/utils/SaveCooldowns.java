@@ -1,8 +1,8 @@
-package starify.itemlottery.managers.cooldownsmanager.utils;
+package acctualyplugins.itemlottery.managers.cooldownsmanager.utils;
 
 import org.bukkit.configuration.ConfigurationSection;
-import starify.itemlottery.files.CreateCooldownsFile;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.files.CreateCooldownsFile;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.Map;
 

@@ -1,8 +1,7 @@
-package starify.itemlottery.managers.cooldownsmanager.utils;
+package acctualyplugins.itemlottery.managers.cooldownsmanager.utils;
 
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.cooldownsmanager.CooldownsManager;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.Map;
 import java.util.Objects;

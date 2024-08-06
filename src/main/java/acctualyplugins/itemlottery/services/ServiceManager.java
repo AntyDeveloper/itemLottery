@@ -1,10 +1,10 @@
-package starify.itemlottery.services;
+package acctualyplugins.itemlottery.services;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import starify.itemlottery.files.CreateLogsFile;
-import starify.itemlottery.managers.logmanager.objects.Log;
+import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;

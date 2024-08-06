@@ -1,4 +1,4 @@
-package starify.itemlottery;
+package acctualyplugins.itemlottery;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
@@ -6,18 +6,17 @@ import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import starify.itemlottery.commands.CreateLotteryCommand;
-import starify.itemlottery.events.PlayerJoinListener;
-import starify.itemlottery.files.CreateConfigFile;
-import starify.itemlottery.files.CreateCooldownsFile;
-import starify.itemlottery.files.CreateLogsFile;
-import starify.itemlottery.managers.cooldownsmanager.CooldownsManager;
-import starify.itemlottery.managers.cooldownsmanager.utils.LoadCooldowns;
-import starify.itemlottery.managers.logmanager.objects.Log;
-import starify.itemlottery.managers.metricsmamager.MetricsLite;
-import starify.itemlottery.managers.updatemanager.UpdateManager;
-import starify.itemlottery.managers.vaultmanager.VaultManager;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.commands.CreateLotteryCommand;
+import acctualyplugins.itemlottery.events.PlayerJoinListener;
+import acctualyplugins.itemlottery.files.CreateConfigFile;
+import acctualyplugins.itemlottery.files.CreateCooldownsFile;
+import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.LoadCooldowns;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
+import acctualyplugins.itemlottery.managers.metricsmamager.MetricsLite;
+import acctualyplugins.itemlottery.managers.updatemanager.UpdateManager;
+import acctualyplugins.itemlottery.managers.vaultmanager.VaultManager;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.ArrayList;
 

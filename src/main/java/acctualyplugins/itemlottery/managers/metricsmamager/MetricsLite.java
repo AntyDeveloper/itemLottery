@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.metricsmamager;
+package acctualyplugins.itemlottery.managers.metricsmamager;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

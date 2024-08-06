@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.managers.vaultmanager.utils.GetEconomy;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.managers.vaultmanager.utils.GetEconomy;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 /**
  * Handler class for managing economy-related operations in the lottery system.

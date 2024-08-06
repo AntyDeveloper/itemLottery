@@ -1,8 +1,8 @@
-package starify.itemlottery.server.utils;
+package acctualyplugins.itemlottery.server.utils;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
-import starify.itemlottery.server.utils.messages.Refactor;
+import acctualyplugins.itemlottery.server.utils.messages.Refactor;
 
 /**
  * Utility class for formatting chat messages.

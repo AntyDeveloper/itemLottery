@@ -1,10 +1,10 @@
-package starify.itemlottery.managers.drawmanager.utils.bossbar;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.bossbar;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.ItemLottery;
 
 public class RemoveBossbar {
 

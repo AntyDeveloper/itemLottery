@@ -1,10 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.drawmanager.utils.tasks.TaskManager;
-import starify.itemlottery.managers.drawmanager.utils.tasks.drawtasks.Draw;
-import starify.itemlottery.managers.drawmanager.utils.tasks.drawtasks.DrawWithTickets;
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.drawtasks.Draw;
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.drawtasks.DrawWithTickets;
 
 import java.util.Map;
 

@@ -1,24 +1,24 @@
-package starify.itemlottery.server.utils.subcommands;
+package acctualyplugins.itemlottery.server.utils.subcommands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.drawmanager.DrawManager;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.managers.logmanager.LogManager;
-import starify.itemlottery.server.utils.handlers.*;
-import starify.itemlottery.server.utils.senders.Message;
-import starify.itemlottery.server.utils.senders.Title;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
+import acctualyplugins.itemlottery.server.utils.handlers.*;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.server.utils.senders.Title;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static starify.itemlottery.server.utils.handlers.ItemStackHandlers.getDisplayName;
-import static starify.itemlottery.server.utils.handlers.ItemStackHandlers.updateItemStackAmount;
+import static acctualyplugins.itemlottery.server.utils.handlers.ItemStackHandlers.getDisplayName;
+import static acctualyplugins.itemlottery.server.utils.handlers.ItemStackHandlers.updateItemStackAmount;
 
 /**
  * Class for handling the Create Lottery command.
@@ -62,14 +62,21 @@ public class CreateLottery {
         boolean ticketSystem = settings.getBoolean("ticketSystem");
         try {
             if (PermissionsHandler.hasPermission(player, "lottery.bypass",
-                    "Cooldown")) CooldownHandlers.checkPlayerCooldown(player);
+                    "Cooldown")) { CooldownHandlers.checkPlayerCooldown(player); }
 
             TicketHandlers ticketHandlers = new TicketHandlers();
-            ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem);
 
-            TaskHandler.isTaskRunning(player);
+            if(!ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem)) {
+                return;
+            };
 
-            NotEnoughPlayers.notEnoughPlayers(winnerCount, player);
+            if(TaskHandler.isTaskRunning(player)) {
+                return;
+            };
+
+            if(!NotEnoughPlayers.notEnoughPlayers(winnerCount, player)) {
+                return;
+            };
 
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             ItemStack itemStackStatic = itemStack.clone();

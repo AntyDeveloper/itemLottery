@@ -1,4 +1,4 @@
-package starify.itemlottery.server.utils.messages;
+package acctualyplugins.itemlottery.server.utils.messages;
 
 import de.themoep.minedown.adventure.MineDown;
 import lombok.val;

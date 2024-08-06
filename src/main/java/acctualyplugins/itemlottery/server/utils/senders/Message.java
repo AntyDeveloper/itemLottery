@@ -1,11 +1,11 @@
-package starify.itemlottery.server.utils.senders;
+package acctualyplugins.itemlottery.server.utils.senders;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.server.utils.Formatters;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.server.utils.Formatters;
 
 /**
  * Utility class for sending messages to players and command senders in the lottery system.

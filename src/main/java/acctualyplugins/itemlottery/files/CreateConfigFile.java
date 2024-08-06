@@ -1,9 +1,9 @@
-package starify.itemlottery.files;
+package acctualyplugins.itemlottery.files;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import starify.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.ItemLottery;
 
 import java.io.File;
 import java.io.IOException;

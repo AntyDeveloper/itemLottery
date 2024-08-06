@@ -1,8 +1,8 @@
-package starify.itemlottery.managers.updatemanager;
+package acctualyplugins.itemlottery.managers.updatemanager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.util.Consumer;
-import starify.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.ItemLottery;
 
 import java.io.IOException;
 import java.io.InputStream;

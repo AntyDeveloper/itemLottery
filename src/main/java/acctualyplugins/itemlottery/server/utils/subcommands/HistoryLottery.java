@@ -1,11 +1,11 @@
-package starify.itemlottery.server.utils.subcommands;
+package acctualyplugins.itemlottery.server.utils.subcommands;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import starify.itemlottery.managers.logmanager.LogManager;
-import starify.itemlottery.managers.logmanager.objects.Log;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 import java.util.Map;
 import java.util.Objects;

@@ -1,16 +1,16 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 import java.util.Objects;
 
-import static starify.itemlottery.commands.CreateLotteryCommand.enchantmentsToString;
-import static starify.itemlottery.managers.drawmanager.DrawManager.cc;
+import static acctualyplugins.itemlottery.commands.CreateLotteryCommand.enchantmentsToString;
+import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.cc;
 
 /**
  * Handler class for managing ItemStack operations in the lottery system.

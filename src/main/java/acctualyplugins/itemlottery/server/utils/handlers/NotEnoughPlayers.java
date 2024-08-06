@@ -1,14 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
-
-import java.util.List;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 /**
  * Handler class for managing player count checks in the lottery system.

@@ -1,21 +1,20 @@
 name: ItemLottery
 version: '${project.version}'
-main: starify.itemlottery.ItemLottery
+main: acctualyplugins.itemlottery.ItemLottery
 api-version: '1.19'
 prefix: ItemLottery
 authors: [AspDev]
-website: starify.tech
+website: acctualyplugins.eu
 
-commands:
-  lottery:
+
 permissions:
   lottery.admin:
     description: Allows you to admin commands!
+    default: op
     children:
       lottery.bypass: true
       lottery.create: true
       lottery.history: true
-      lottery.playeruse: true
   lottery.playeruse:
     description: Allows player to create player lottery!
   lottery.bypass:

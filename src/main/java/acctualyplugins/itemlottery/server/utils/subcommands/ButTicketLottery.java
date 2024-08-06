@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.subcommands;
+package acctualyplugins.itemlottery.server.utils.subcommands;
 
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.drawmanager.DrawManager;
-import starify.itemlottery.server.utils.handlers.EconomyHandlers;
-import starify.itemlottery.server.utils.handlers.TicketHandlers;
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
+import acctualyplugins.itemlottery.server.utils.handlers.EconomyHandlers;
+import acctualyplugins.itemlottery.server.utils.handlers.TicketHandlers;
 
 /**
  * Class for handling the Buy Ticket Lottery command.

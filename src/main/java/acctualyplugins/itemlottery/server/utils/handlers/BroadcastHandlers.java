@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.drawmanager.DrawManager;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 import java.util.List;
 

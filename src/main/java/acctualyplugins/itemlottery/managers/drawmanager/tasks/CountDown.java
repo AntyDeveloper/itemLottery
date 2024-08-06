@@ -1,16 +1,16 @@
-package starify.itemlottery.managers.drawmanager.tasks;
+package acctualyplugins.itemlottery.managers.drawmanager.tasks;
 
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.handlers.DrawHandlers;
-import starify.itemlottery.server.utils.messages.Refactor;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.handlers.DrawHandlers;
+import acctualyplugins.itemlottery.server.utils.messages.Refactor;
 
 import java.util.Map;
 
-import static starify.itemlottery.managers.drawmanager.DrawManager.*;
+import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.*;
 
 /**
  * Class responsible for managing the countdown task for the lottery draw.
@@ -46,14 +46,19 @@ public class CountDown {
                 BosBarTitle = getLanguageMessage.getLanguageMessage("BosBarTitle",
                         "Lottery");
 
-                if (remainingTime >= 60) {
+                if (remainingTime >= 3600) {
+                    int hours = remainingTime / 3600;
+                    int minutes = (remainingTime % 3600) / 60;
+                    int seconds = remainingTime % 60;
+                    BosBarTitle = BosBarTitle.replace("%time%", hours + "h " + minutes + "m " + seconds + "s");
+                } else if (remainingTime >= 60) {
                     int minutes = remainingTime / 60;
                     int seconds = remainingTime % 60;
                     BosBarTitle = BosBarTitle.replace("%time%", minutes + "m " + seconds + "s");
                 } else {
                     BosBarTitle = BosBarTitle.replace("%time%", remainingTime + "s");
                 }
-
+                
                 if (TicketUse && messageCounter >= messageInterval) {
                     BosBarTitle = "&9&lBuy a ticket for &f&l" + TicketPrice + "$ &8/&9lottery buy";
                     if(messageCounter > messageInterval + 3) {

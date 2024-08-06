@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.drawmanager.utils.tasks;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.tasks;
 
 import org.bukkit.entity.Player;
 

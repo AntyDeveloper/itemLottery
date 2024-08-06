@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 /**
  * Handler class for managing permissions in the lottery system.

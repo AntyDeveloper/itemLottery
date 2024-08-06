@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.handlers;
+package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.entity.Player;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 /**
  * Handler class for managing ticket-related operations in the lottery system.

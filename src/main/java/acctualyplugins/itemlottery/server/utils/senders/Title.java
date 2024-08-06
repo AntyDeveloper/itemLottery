@@ -1,9 +1,9 @@
-package starify.itemlottery.server.utils.senders;
+package acctualyplugins.itemlottery.server.utils.senders;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.server.utils.Formatters;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.server.utils.Formatters;
 
 import java.time.Duration;
 

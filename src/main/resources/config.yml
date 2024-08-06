@@ -7,31 +7,39 @@ settings:
   cooldownTime: 300
   #Display item type in broadcast message?
   itemTypeDisplay: false
+  #Buy ticket to lottery (you need vault)
+  ticketSystem: false
 
-  Messages:
-    Prefix: "&7[&9Lottery&7]"
-    Usage: "&8» &cUsage: &7/lottery create/history/end &f"
-    Permissions: "&8» &cYou don't have permission!"
-    Cooldown: "&8» &9Cooldown remaining time to create lottery &7%time%"
-    LotteryCommandArgs:
-      ItemInHand: "&8» &cYou must have item in hand!"
-      Time: "&8» &cYou must set lottery time in seconds and time must be longer than 60 seconds!"
-      CommandRun: "&8» &9Is currently on!"
-      LogNotFound: "&8» &9Log is not found!"
-      ForeEndBroadcast: "&8» &9Lottery has been force ended!"
-      ForceEnd: "&8» &9You have completed the lotteries!"
-      Error: "&8» &cSomething's gone wrong"
-      ItemCount: "&8» &cThe number of item must be higher than 0."
-      ItemInHandCount: "&8» &cYou don't have enough of this item"
-      WinnerCount: "&8» &cYou must set an even number of wins."
-      ItemAndWinnerCount: "&8» The number of wins and the number of prizes must be divisible by each other"
-      LotteryNotActive: "&8» &cLottery is not active!"
-      NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to make the draw!"
-    Lottery:
-      StartTitle: "Lottery"
-      StartSubTitle: "&9&lHas been started!"
-      StartBroadCastMessage: "Has been started on %item_name%!"
-      BosBarTitle: "&aTime to lottery&7: %time%"
-      Title: "Lottery win"
-      WinMessage: "You are win the lottery!"
-      NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to make the draw!"
+Messages:
+  Prefix: "&7[&9Lottery&7]"
+  Usage: "&8» &cUsage: &7/lottery create/history/end &f"
+  Permissions: "&8» &cYou don't have permission!"
+  Cooldown: "&8» &9Time left to create lottery: &7%time%"
+  LotteryCommandArgs:
+    ItemInHand: "&8» &cYou must hold an item in your hand!"
+    Time: "&8» &cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
+    CommandRun: "&8» &9The lottery is already active!"
+    LogNotFound: "&8» &9Log not found!"
+    ForeEndBroadcast: "&8» &9The lottery has been forcibly ended!"
+    ForceEnd: "&8» &9You have ended the lottery!"
+    Error: "&8» &cSomething went wrong"
+    ItemCount: "&8» &cThe number of items must be a positive number."
+    ItemInHandCount: "&8» &cYou don't have enough of this item"
+    WinnerCount: "&8» &cYou must set an even number of winners."
+    ItemAndWinnerCount: "&8» The number of winners and the number of prizes must be divisible by each other"
+    LotteryNotActive: "&8» &cThe lottery is not active!"
+    NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to do the draw!"
+    NotEnoughItems: "&8» &cThere are not enough items to do the draw!"
+    NotEnoughMoney: "&8» &cYou don't have enough money to buy a ticket!"
+    TicketBought: "&8» &9You bought a ticket for the lottery!"
+    TicketSystemDisabled: "&8» &cThe ticket system is disabled!"
+  Lottery:
+    StartTitle: "Lottery"
+    StartSubTitle: "&9&lHas started!"
+    StartBroadCastMessage: "&8» &9&lThe lottery has started for &f&l%item_name%!"
+    BosBarTitle: "&9Time until lottery&7: &f%time%"
+    Title: "Lottery win"
+    WinMessage: "&8» You won the lottery!"
+    NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to do the draw!"
+    TicketCostMessage: "&8» &9The ticket costs &f%cost% &9to buy!"
+

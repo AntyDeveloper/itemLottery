@@ -1,14 +1,12 @@
-package starify.itemlottery.managers.drawmanager.utils.annoucments;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.annoucments;
 
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.drawmanager.DrawManager;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 
-import static starify.itemlottery.managers.drawmanager.DrawManager.cc;
+import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.cc;
 
 /**
  * Utility class for announcing the winners of the lottery draw.

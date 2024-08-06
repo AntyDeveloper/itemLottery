@@ -1,13 +1,13 @@
-package starify.itemlottery.managers.drawmanager.utils;
+package acctualyplugins.itemlottery.managers.drawmanager.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static starify.itemlottery.managers.drawmanager.utils.tasks.TaskManager.selectedPlayers;
+import static acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.TaskManager.selectedPlayers;
 
 /**
  * Utility class for selecting winners for the lottery draw.

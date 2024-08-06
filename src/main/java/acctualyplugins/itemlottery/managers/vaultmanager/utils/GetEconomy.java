@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.vaultmanager.utils;
+package acctualyplugins.itemlottery.managers.vaultmanager.utils;
 
 import net.milkbowl.vault.economy.Economy;
 

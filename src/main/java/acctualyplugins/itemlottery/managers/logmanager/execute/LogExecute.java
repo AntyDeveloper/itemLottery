@@ -1,11 +1,11 @@
-package starify.itemlottery.managers.logmanager.execute;
+package acctualyplugins.itemlottery.managers.logmanager.execute;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import starify.itemlottery.files.CreateLogsFile;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

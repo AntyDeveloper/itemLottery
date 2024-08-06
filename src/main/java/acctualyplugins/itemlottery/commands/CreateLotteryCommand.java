@@ -1,4 +1,4 @@
-package starify.itemlottery.commands;
+package acctualyplugins.itemlottery.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.*;
@@ -6,11 +6,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.logmanager.objects.Log;
-import starify.itemlottery.server.utils.subcommands.*;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
+import acctualyplugins.itemlottery.server.utils.subcommands.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,8 +87,8 @@ public class CreateLotteryCommand  {
                         .withPermission("lottery.history")
                         .withArguments(new ListArgumentBuilder<Log>("logName").allowDuplicates(false)
                                 .withList(logs.stream()
-                                        .sorted(Comparator.comparing((Log log) -> LocalDate.parse(log.getLogName(),
-                                                        DateTimeFormatter.ofPattern("dd-yyyy-MM-")))
+                                        .sorted(Comparator.comparing((Log log) -> LocalDateTime.parse(log.getLogName(),
+                                                        DateTimeFormatter.ofPattern("HH:mm/dd:MM:yy")))
                                                 .reversed())
                                         .collect(Collectors.toList()))
                                 .withMapper(log -> log.getLogName().toLowerCase())
@@ -126,8 +127,8 @@ public class CreateLotteryCommand  {
                 .withSubcommand(new CommandAPICommand("giveitem")
                         .withArguments(new ListArgumentBuilder<Log>("logName").allowDuplicates(false)
                                 .withList(logs.stream()
-                                        .sorted(Comparator.comparing((Log log) -> LocalDate.parse(log.getLogName(),
-                                                        DateTimeFormatter.ofPattern("dd-yyyy-MM-")))
+                                        .sorted(Comparator.comparing((Log log) -> LocalDateTime.parse(log.getLogName(),
+                                                        DateTimeFormatter.ofPattern("HH:mm/dd:MM:yy")))
                                                 .reversed())
                                         .collect(Collectors.toList()))
                                 .withMapper(log -> log.getLogName().toLowerCase())

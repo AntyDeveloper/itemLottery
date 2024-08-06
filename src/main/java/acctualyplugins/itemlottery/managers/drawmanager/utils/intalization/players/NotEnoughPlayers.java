@@ -1,12 +1,12 @@
-package starify.itemlottery.managers.drawmanager.utils.intalization.players;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.intalization.players;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 import java.util.List;
 

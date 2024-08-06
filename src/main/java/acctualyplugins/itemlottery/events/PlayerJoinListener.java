@@ -1,14 +1,11 @@
-package starify.itemlottery.events;
+package acctualyplugins.itemlottery.events;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.updatemanager.UpdateManager;
-import starify.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.managers.updatemanager.UpdateManager;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
 
 /**
  * Listener class for handling player join events.

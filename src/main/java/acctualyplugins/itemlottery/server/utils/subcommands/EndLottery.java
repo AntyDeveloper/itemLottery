@@ -1,18 +1,16 @@
-package starify.itemlottery.server.utils.subcommands;
+package acctualyplugins.itemlottery.server.utils.subcommands;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.drawmanager.DrawManager;
-import starify.itemlottery.managers.drawmanager.utils.bossbar.RemoveBossbar;
-import starify.itemlottery.managers.drawmanager.utils.tasks.TaskManager;
-import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
-import starify.itemlottery.server.utils.handlers.DrawHandlers;
-import starify.itemlottery.server.utils.handlers.TaskHandler;
-import starify.itemlottery.server.utils.senders.Message;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
+import acctualyplugins.itemlottery.managers.drawmanager.utils.bossbar.RemoveBossbar;
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.TaskManager;
+import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import acctualyplugins.itemlottery.server.utils.handlers.DrawHandlers;
+import acctualyplugins.itemlottery.server.utils.handlers.TaskHandler;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.ArrayList;
 import java.util.List;

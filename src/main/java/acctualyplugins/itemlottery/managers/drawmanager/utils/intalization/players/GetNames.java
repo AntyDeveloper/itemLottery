@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.drawmanager.utils.intalization.players;
+package acctualyplugins.itemlottery.managers.drawmanager.utils.intalization.players;
 
 import org.bukkit.entity.Player;
 

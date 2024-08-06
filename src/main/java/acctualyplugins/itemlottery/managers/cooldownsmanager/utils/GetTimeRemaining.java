@@ -1,8 +1,7 @@
-package starify.itemlottery.managers.cooldownsmanager.utils;
+package acctualyplugins.itemlottery.managers.cooldownsmanager.utils;
 
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.cooldownsmanager.CooldownsManager;
-import starify.itemlottery.services.ServiceManager;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.Map;
 import java.util.Objects;
@@ -42,7 +41,12 @@ public class GetTimeRemaining {
             // If there is remaining time, format it as "Xm Ys" or "Ys"
             if (timeRemaining >= 0) {
                 int timeRemainingInSec = (int) (timeRemaining / 1000);
-                if (timeRemainingInSec >= 60) {
+                if (timeRemainingInSec >= 3600) {
+                    int hours = timeRemainingInSec / 3600;
+                    int minutes = (timeRemainingInSec % 3600) / 60;
+                    int seconds = timeRemainingInSec % 60;
+                    return hours + "h " + minutes + "m " + seconds + "s";
+                } else if (timeRemainingInSec >= 60) {
                     int minutes = timeRemainingInSec / 60;
                     int seconds = timeRemainingInSec % 60;
                     return minutes + "m " + seconds + "s";

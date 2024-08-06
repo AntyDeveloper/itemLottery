@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.drawmanager;
+package acctualyplugins.itemlottery.managers.drawmanager;
 
 import lombok.Getter;
 import net.kyori.adventure.bossbar.BossBar;
@@ -6,9 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
-import starify.itemlottery.ItemLottery;
-import starify.itemlottery.managers.drawmanager.tasks.CountDown;
-import starify.itemlottery.server.utils.messages.Refactor;
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.drawmanager.tasks.CountDown;
+import acctualyplugins.itemlottery.server.utils.messages.Refactor;
 
 import java.util.Map;
 

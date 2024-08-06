@@ -1,4 +1,4 @@
-package starify.itemlottery.managers.logmanager.objects;
+package acctualyplugins.itemlottery.managers.logmanager.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

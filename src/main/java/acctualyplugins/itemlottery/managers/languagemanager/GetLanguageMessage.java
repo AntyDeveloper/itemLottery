@@ -1,7 +1,7 @@
-package starify.itemlottery.managers.languagemanager;
+package acctualyplugins.itemlottery.managers.languagemanager;
 
 import org.bukkit.configuration.ConfigurationSection;
-import starify.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.ItemLottery;
 
 /**
  * Class for retrieving language messages from the configuration.
