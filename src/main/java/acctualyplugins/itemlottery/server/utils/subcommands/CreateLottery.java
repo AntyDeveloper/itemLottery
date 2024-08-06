@@ -1,0 +1,112 @@
+package starify.itemlottery.server.utils.subcommands;
+
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import starify.itemlottery.ItemLottery;
+import starify.itemlottery.managers.drawmanager.DrawManager;
+import starify.itemlottery.managers.languagemanager.GetLanguageMessage;
+import starify.itemlottery.managers.logmanager.LogManager;
+import starify.itemlottery.server.utils.handlers.*;
+import starify.itemlottery.server.utils.senders.Message;
+import starify.itemlottery.server.utils.senders.Title;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static starify.itemlottery.server.utils.handlers.ItemStackHandlers.getDisplayName;
+import static starify.itemlottery.server.utils.handlers.ItemStackHandlers.updateItemStackAmount;
+
+/**
+ * Class for handling the Create Lottery command.
+ */
+public class CreateLottery {
+    /**
+     * Instance for retrieving language messages.
+     */
+    private final GetLanguageMessage getLanguageMessage = new GetLanguageMessage();
+
+    /**
+     * Instance for managing the draw of items.
+     */
+    private final DrawManager drawItem = new DrawManager();
+
+    /**
+     * Instance for sending messages to players.
+     */
+    private final Message message = new Message();
+
+    /**
+     * Instance for sending titles to players.
+     */
+    private final Title title = new Title();
+
+    /**
+     * Executes the Create Lottery command.
+     *
+     * @param player The player executing the command.
+     * @param time The duration of the lottery.
+     * @param itemCount The number of items in the lottery.
+     * @param winnerCount The number of winners in the lottery.
+     * @param ticketUse Whether tickets are used in the lottery.
+     * @param ticketPrice The price of the ticket.
+     */
+    public void createLotteryCommand(Player player, int time, int itemCount, int winnerCount, boolean ticketUse,
+                                     int ticketPrice) {
+        ConfigurationSection settings = ItemLottery.getInstance().getConfig().getConfigurationSection("settings");
+        assert settings != null;
+        boolean playerUse = settings.getBoolean("playerLotteryUse");
+        boolean ticketSystem = settings.getBoolean("ticketSystem");
+        try {
+            if (PermissionsHandler.hasPermission(player, "lottery.bypass",
+                    "Cooldown")) CooldownHandlers.checkPlayerCooldown(player);
+
+            TicketHandlers ticketHandlers = new TicketHandlers();
+            ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem);
+
+            TaskHandler.isTaskRunning(player);
+
+            NotEnoughPlayers.notEnoughPlayers(winnerCount, player);
+
+            ItemStack itemStack = player.getInventory().getItemInMainHand();
+            ItemStack itemStackStatic = itemStack.clone();
+            ItemStackHandlers.isItemStackEmpty(itemStack, player);
+
+            PermissionsHandler.playerUse(player, playerUse, itemStack, itemCount);
+
+            BroadcastHandlers.broadcastTime(player, time);
+
+            int newAmount = updateItemStackAmount(itemStack, itemCount);
+            String displayName = getDisplayName(itemStack);
+
+            Objects.requireNonNull(itemStack.getItemMeta()).setDisplayName(displayName);
+            itemStack.setAmount(itemCount);
+
+            CooldownHandlers.setPlayerCooldown(player);
+
+            Map<String, Object> serialized = itemStackStatic.serialize();
+            List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+
+            onlinePlayers.forEach(playerSend ->
+                    title.showMyTitleWithDurations(playerSend,
+                            getLanguageMessage.getLanguageMessage("StartTitle", "Lottery"),
+                            getLanguageMessage.getLanguageMessage("StartSubTitle",
+                                    "Lottery") + " &7by &f" + playerSend.getName())
+
+            );
+
+
+            player.getInventory().getItemInMainHand().setAmount(newAmount);
+            drawItem.drawItem(serialized, time, winnerCount, player, ticketUse, ticketPrice);
+            LogManager.createNewLog(itemStackStatic, player, winnerCount);
+
+            BroadcastHandlers.broadcastStartMessage(onlinePlayers, displayName, ticketUse);
+
+        } catch (Exception e) {
+            ItemLottery.getInstance().getLogger().info(e.toString());
+        }
+    }
+}
