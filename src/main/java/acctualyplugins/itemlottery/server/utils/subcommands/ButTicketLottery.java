@@ -15,7 +15,6 @@ public class ButTicketLottery {
      * and checks the player's ticket status.
      *
      * @param player The player executing the command.
-     * @param TicketPrice The price of the ticket.
      */
     public void BuyTicketLotteryCommand(Player player) {
         TicketHandlers ticketHandlers = new TicketHandlers();

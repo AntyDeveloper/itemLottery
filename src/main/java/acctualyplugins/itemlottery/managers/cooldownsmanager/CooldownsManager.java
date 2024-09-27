@@ -1,10 +1,7 @@
 package acctualyplugins.itemlottery.managers.cooldownsmanager;
 
+import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.*;
 import lombok.Getter;
-import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.GetTimeRemaining;
-import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.HasCooldown;
-import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.LoadCooldowns;
-import acctualyplugins.itemlottery.managers.cooldownsmanager.utils.SaveCooldowns;
 import acctualyplugins.itemlottery.services.ServiceManager;
 
 import java.util.Map;
@@ -41,7 +38,8 @@ public class CooldownsManager {
      * @param playerName The name of the player to set the cooldown for.
      */
     public void setCooldown(String playerName) {
-        cooldowns.put(playerName, System.currentTimeMillis());
+        SetCooldown setCooldown = new SetCooldown();
+        setCooldown.setCooldown(playerName);
         saveCooldowns();
     }
 

@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery.events;
 
+import acctualyplugins.itemlottery.ItemLottery;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -7,11 +8,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import acctualyplugins.itemlottery.managers.updatemanager.UpdateManager;
 import acctualyplugins.itemlottery.server.utils.senders.Message;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Listener class for handling player join events.
  */
 public class PlayerJoinListener implements Listener {
-    private final Message message = new Message();
+    private final Message message = ItemLottery.getInstance().message;
 
     /**
      * Event handler for when a player joins the server.
@@ -25,12 +29,17 @@ public class PlayerJoinListener implements Listener {
         if(player.isOp()) {
             UpdateManager.checkUpdate();
             if(UpdateManager.opMessageSend) {
-                message.sendMessageComponent(player, "");
-                message.sendMessageComponent(player,"<center>&7《 &9&lUpdate &7》 ");
-                message.sendMessageComponent(player,"");
-                message.sendMessageComponent(player,"<center>&bNew update &l&9ItemLottery " +
-                        "&r&bis available!");
-                message.sendMessageComponent(player,"");
+                List<String> strings = Arrays.asList(
+                        " ",
+                        "<center>&7《 &9&lUpdate &7》 ",
+                        " ",
+                        "<center>&fNew update &l&9ItemLottery &r&bis available!",
+                        " "
+                );
+
+                for (String string : strings) {
+                    message.sendMessageComponent(player, string);
+                }
             }
         }
     }

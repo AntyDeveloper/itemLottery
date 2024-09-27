@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class CreateLotteryCommand  {
 
-    private static Double ticketprice = null;
+    private static Double ticketprice;
     private final ArrayList<Log> logs = ItemLottery.getInstance().getLogList();
 
     /**
@@ -68,9 +68,9 @@ public class CreateLotteryCommand  {
                             boolean ticketsToLottery = ticketsToLotteryArg != null ? ticketsToLotteryArg : false;
 
                             String ticketPriceArg = (String) args.get("ticket price");
-                            int ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : 0;
+                            double ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : 0;
 
-                            ticketprice = (double) ticketPrice;
+                            ticketprice = ticketPrice;
 
                             new CreateLottery().createLotteryCommand(player, time, priceCount, winnerCount,
                                     ticketsToLottery, ticketPrice);
@@ -144,5 +144,13 @@ public class CreateLotteryCommand  {
                         })
                 )
                 .register();
+    }
+
+    public static Double getTicketprice() {
+        return ticketprice;
+    }
+
+    public static void setTicketprice(Double ticketprice) {
+        CreateLotteryCommand.ticketprice = ticketprice;
     }
 }

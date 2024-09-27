@@ -1,5 +1,7 @@
 package acctualyplugins.itemlottery;
 
+import acctualyplugins.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.server.utils.senders.Title;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
@@ -30,14 +32,16 @@ public final class ItemLottery extends JavaPlugin {
      * -- GETTER --
      *  Retrieves the singleton instance of the ItemLottery plugin.
      *
-     * @return The singleton instance.
-
      */
     @Getter
     public static ItemLottery instance;
     private final CreateConfigFile createConfigFile = new CreateConfigFile();
     private final CreateCooldownsFile createCooldownsFile = new CreateCooldownsFile();
     private final CreateLogsFile createLogsFile = new CreateLogsFile();
+
+    public final Message message = new Message();
+
+    public final Title title = new Title();
 
     /**
      * Retrieves the list of logs.

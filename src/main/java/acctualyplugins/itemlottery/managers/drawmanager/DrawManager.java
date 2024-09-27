@@ -22,7 +22,7 @@ public class DrawManager {
     @Getter
     public static BossBar bossBar;
     @Getter
-    public static int ticketPrice;
+    public static double ticketPrice;
     @Getter
     public static boolean ticketUse;
     private static int winnersCounter;
@@ -52,7 +52,7 @@ public class DrawManager {
      * @param TicketPrice The price of a ticket.
      */
     public void drawItem(Map<String, Object> serialized, int drawTime, int winnersCount, Player player,
-                         boolean ticketUse, int ticketPrice) {
+                         boolean ticketUse, double ticketPrice) {
 
         bossBar = BossBar.bossBar(REFACTOR.ChatRefactor("&aLottery started!", player),
                 1, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);

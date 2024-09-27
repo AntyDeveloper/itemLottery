@@ -39,7 +39,7 @@ public class WinnersAnnouncement {
             Audience audience = ItemLottery.getInstance().adventure().player(players);
             bossBar.removeViewer(audience);
             players.sendTitle(cc(getLanguageMessage.getLanguageMessage("Title", "Lottery"))
-                    , cc("&9&l&k" + WinnersNameList + " "), 1, 100, 1);
+                    , cc("&9&l &k" + WinnersNameList + " "), 1, 100, 1);
         }
     }
 }

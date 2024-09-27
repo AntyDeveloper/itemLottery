@@ -1,5 +1,7 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.server.utils.handlers.PermissionsHandler;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,11 +21,6 @@ public class GiveItemLottery {
     private final LogManager logManager = new LogManager();
 
     /**
-     * Instance for sending messages to players.
-     */
-    private final Message message = new Message();
-
-    /**
      * Constructor for the GiveItemLottery class.
      * Retrieves the log by name, deserializes the item stack from the log, and adds the item to the player's inventory.
      *
@@ -31,6 +28,8 @@ public class GiveItemLottery {
      * @param logName The name of the log containing the item stack.
      */
     public GiveItemLottery(Player player, String logName) {
+
+        PermissionsHandler.hasPermission(player, "lottery.end", "Permissions");
         // Retrieve the log by name
         Log logToGive = logManager.getLog(logName);
 
@@ -45,6 +44,10 @@ public class GiveItemLottery {
         // Add the item to the player's inventory
         player.getInventory().addItem(itemToGive);
         // Send a message to the player indicating the item has been added
+        /**
+         * Instance for sending messages to players.
+         */
+        Message message = ItemLottery.getInstance().message;
         message.sendMessageComponent(player, "&aItem has been added!");
     }
 }
