@@ -15,7 +15,7 @@ public class Message {
     /**
      * Formatter instance for formatting chat messages.
      */
-    private static final Formatters formatters = new Formatters();
+    private static final Formatters formatters = ItemLottery.getInstance().getFormatters();
 
     /**
      * Sends a formatted message component to a command sender.

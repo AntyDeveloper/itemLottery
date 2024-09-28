@@ -14,7 +14,7 @@ public class Title {
     /**
      * Formatter instance for formatting chat messages.
      */
-    private static final Formatters formatters = new Formatters();
+    private static final Formatters formatters = ItemLottery.getInstance().getFormatters();
 
     /**
      * Shows a title with specified durations to a player.

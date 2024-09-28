@@ -37,7 +37,7 @@ public class EndLottery {
      */
 
 
-    private final Message message = ItemLottery.getInstance().message;
+    private final Message message = ItemLottery.message;
 
     /**
      * Ends the lottery draw and announces the end to the player.

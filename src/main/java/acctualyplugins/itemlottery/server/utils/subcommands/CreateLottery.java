@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.server.utils.senders.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -9,8 +10,7 @@ import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
 import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import acctualyplugins.itemlottery.server.utils.handlers.*;
-import acctualyplugins.itemlottery.server.utils.senders.Message;
-import acctualyplugins.itemlottery.server.utils.senders.Title;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class CreateLottery {
     /**
      * Instance for sending titles to players.
      */
-    private final Title title = ItemLottery.getInstance().title;
+    private final Title title = ItemLottery.getInstance().getTitle();
 
     /**
      * Executes the Create Lottery command.

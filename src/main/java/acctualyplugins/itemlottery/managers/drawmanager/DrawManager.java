@@ -46,10 +46,8 @@ public class DrawManager {
      *
      * @param serialized The serialized data of the lottery item.
      * @param drawTime The duration of the draw in seconds.
-     * @param WinnersCount The number of winners to be selected.
      * @param player The player who initiated the lottery.
-     * @param TicketUse Whether tickets are used in the draw.
-     * @param TicketPrice The price of a ticket.
+
      */
     public void drawItem(Map<String, Object> serialized, int drawTime, int winnersCount, Player player,
                          boolean ticketUse, double ticketPrice) {

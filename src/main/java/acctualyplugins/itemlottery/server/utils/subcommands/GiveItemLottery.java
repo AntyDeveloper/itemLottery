@@ -15,10 +15,6 @@ import java.util.Map;
  * Class for handling the Give Item Lottery command.
  */
 public class GiveItemLottery {
-    /**
-     * Instance for managing logs.
-     */
-    private final LogManager logManager = new LogManager();
 
     /**
      * Constructor for the GiveItemLottery class.
@@ -31,6 +27,10 @@ public class GiveItemLottery {
 
         PermissionsHandler.hasPermission(player, "lottery.end", "Permissions");
         // Retrieve the log by name
+        /**
+         * Instance for managing logs.
+         */
+        LogManager logManager = ItemLottery.getInstance().getLogManager();
         Log logToGive = logManager.getLog(logName);
 
         // Get the item stack configuration section from the log
@@ -47,7 +47,7 @@ public class GiveItemLottery {
         /**
          * Instance for sending messages to players.
          */
-        Message message = ItemLottery.getInstance().message;
+        Message message = ItemLottery.getInstance().getMessage();
         message.sendMessageComponent(player, "&aItem has been added!");
     }
 }
