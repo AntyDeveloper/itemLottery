@@ -1,5 +1,9 @@
 package acctualyplugins.itemlottery;
 
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
+import acctualyplugins.itemlottery.server.utils.Formatters;
+import acctualyplugins.itemlottery.server.utils.senders.Message;
+import acctualyplugins.itemlottery.server.utils.senders.Title;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
@@ -25,31 +29,42 @@ import java.util.ArrayList;
  * Handles the initialization and shutdown of the plugin.
  */
 public final class ItemLottery extends JavaPlugin {
-
     /**
      * Singleton instance of the ItemLottery plugin.
      * -- GETTER --
      *  Retrieves the singleton instance of the ItemLottery plugin.
      *
      * @return The singleton instance.
-     */
 
+     */
     @Getter
     public static ItemLottery instance;
+
+    // Instances for creating configuration, cooldowns, and logs files
     private final CreateConfigFile createConfigFile = new CreateConfigFile();
     private final CreateCooldownsFile createCooldownsFile = new CreateCooldownsFile();
     private final CreateLogsFile createLogsFile = new CreateLogsFile();
 
+
+    // Static instances for message, title, and formatters
+    @Getter
+    private final Message message = new Message();
+    @Getter
+    private final Title title = new Title();
+    @Getter
+    private final Formatters formatters = new Formatters();
+    @Getter
+    private  LogManager logManager = new LogManager();
     /**
      * Retrieves the list of logs.
      *
      * @return The list of logs.
      */
-    public ArrayList<Log> getLogList() { return ServiceManager.LogsList; }
+    public ArrayList<Log> getLogList() {
+        return ServiceManager.LogsList;
+    }
 
-    /**
-     * Instance for handling Bukkit audiences.
-     */
+    // Instance for handling Bukkit audiences
     private BukkitAudiences adventure;
 
     /**
@@ -84,40 +99,75 @@ public final class ItemLottery extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
+
+        // Register configs
+        registerConfigs();
+
+        // Register APIs
+        registerApis();
+
+        // Register commands
+        commandRegistration();
+
+        // Register events
+        eventRegistration();
+    }
+
+    /**
+     * Registers configuration files and loads cooldowns.
+     */
+    private void registerConfigs() {
         // Create files
         createConfigFile.createFiles();
         createCooldownsFile.setup();
         createLogsFile.setup();
 
+        // Load cooldowns
+        new LoadCooldowns().loadCooldowns();
+
+        // Set logs list
         ServiceManager.setLogsList();
+    }
 
-        // Register vault
-        new VaultManager().registerVault();
-
+    /**
+     * Registers various APIs including CommandAPI, Adventure, Vault, and metrics.
+     */
+    private void registerApis() {
+        // Register CommandAPI
+        CommandAPI.onEnable();
+        // Register Adventure
         this.adventure = BukkitAudiences.create(this);
 
-        // Register events
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-
-        CommandAPI.onEnable();
-
-        new CreateLotteryCommand();
-
-        // Update checker
-        UpdateManager.checkUpdate();
+        // Register Vault
+        new VaultManager().registerVault();
 
         // Register metrics
         new MetricsLite(this, 19956);
 
-        // Load cooldowns
-        new LoadCooldowns().loadCooldowns();
+        // Update checker
+        UpdateManager.checkUpdate();
+    }
+
+    /**
+     * Registers commands for the plugin.
+     */
+    private void commandRegistration() {
+        // Register commands
+        new CreateLotteryCommand();
+    }
+
+    /**
+     * Registers event listeners for the plugin.
+     */
+    private void eventRegistration() {
+        // Register events
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
     }
 
     /**
      * Called when the plugin is disabled.
      * Saves cooldowns and disables the CommandAPI.
      */
-
     @Override
     public void onDisable() {
         CommandAPI.onDisable();

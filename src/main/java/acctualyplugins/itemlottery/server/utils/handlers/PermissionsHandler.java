@@ -40,15 +40,14 @@ public class PermissionsHandler {
      * Checks if a player can use an item based on their permissions and the item count.
      * If the player does not have the required permission or enough items, sends a message to the player.
      *
-     * @param player The player whose item use is being checked.
+     * @param player    The player whose item use is being checked.
      * @param playerUse Whether the player is allowed to use the item.
      * @param itemStack The ItemStack to check.
      * @param itemCount The number of items required.
-     * @return True if the player can use the item, false otherwise.
      */
     public static boolean playerUse(Player player, boolean playerUse, ItemStack itemStack, int itemCount) {
-        if (playerUse) {
-            if (!player.hasPermission("lottery.admin")) {
+        if (playerUse && player.hasPermission("lottery.playeruse") || player.hasPermission("lottery.create")) {
+            if (!player.hasPermission("lottery.create")) {
                 if(itemStack.getAmount() < itemCount) {
                     message.sendMessageComponent(player,
                             getLanguageMessage.getLanguageMessage("NotEnoughItems",
@@ -56,6 +55,9 @@ public class PermissionsHandler {
                     return false;
                 }
             }
+        } else if(!playerUse && player.hasPermission("lottery.playeruse")) {
+            message.sendMessageComponent(player, getLanguageMessage.getLanguageMessage("NoPermission"));
+            return false;
         }
         return true;
     }

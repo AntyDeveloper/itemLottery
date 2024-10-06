@@ -11,11 +11,12 @@ settings:
   ticketSystem: false
 
 Messages:
-  Prefix: "&7[&9Lottery&7]"
-  Usage: "&8» &cUsage: &7/lottery create/history/end &f"
-  Permissions: "&8» &cYou don't have permission!"
-  Cooldown: "&8» &9Time left to create lottery: &7%time%"
+  Prefix: "&7[&9Lottery&7] &8» "
+  Usage: "&cUsage: &7/lottery create/history/end &f"
+  Permissions: "&cYou don't have permission!"
+  Cooldown: "&9Time left to create lottery: &7%time%"
   LotteryCommandArgs:
+<<<<<<< HEAD
     ItemInHand: "&8» &cYou must hold an item in your hand!"
     Time: "&8» &cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
     CommandRun: "&8» &9The lottery is already active!"
@@ -34,13 +35,32 @@ Messages:
     NotEnoughMoney: "&8» &cYou don't have enough money to buy a ticket!"
     TicketBought: "&8» &9You bought a ticket for the lottery!"
     TicketSystemDisabled: "&8» &cThe ticket system is disabled!"
+=======
+    ItemInHand: "&cYou must hold an item in your hand!"
+    Time: "&cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
+    CommandRun: "&9The lottery is already active!"
+    LogNotFound: "&9Log not found!"
+    ForeEndBroadcast: "&9The lottery has been forcibly ended!"
+    ForceEnd: "&9You have ended the lottery!"
+    Error: "&cSomething went wrong"
+    ItemCount: "&cThe number of items must be a positive number."
+    ItemInHandCount: "&cYou don't have enough of this item"
+    WinnerCount: "&cYou must set an even number of winners."
+    ItemAndWinnerCount: "The number of winners and the number of prizes must be divisible by each other"
+    LotteryNotActive: "&cThe lottery is not active!"
+    NotEnoughOnlinePlayers: "&cThere are not enough players online to do the draw!"
+    NotEnoughItems: "&cThere are not enough items to do the draw!"
+    NotEnoughMoney: "&cYou don't have enough money to buy a ticket!"
+    TicketBought: "&9You bought a ticket for the lottery!"
+    TicketSystemDisabled: "&cThe ticket system is disabled!"
+>>>>>>> 339cc54c352526c350929d319ced8e0cccf49770
   Lottery:
     StartTitle: "Lottery"
     StartSubTitle: "&9&lHas started!"
-    StartBroadCastMessage: "&8» &9&lThe lottery has started for &f&l%item_name%!"
+    StartBroadCastMessage: "&9&lThe lottery has started for &f&l%item_name%!"
     BosBarTitle: "&9Time until lottery&7: &f%time%"
     Title: "Lottery win"
-    WinMessage: "&8» You won the lottery!"
-    NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to do the draw!"
-    TicketCostMessage: "&8» &9The ticket costs &f%cost% &9to buy!"
+    WinMessage: "You won the lottery!"
+    NotEnoughOnlinePlayers: "&cThere are not enough players online to do the draw!"
+    TicketCostMessage: "&9The ticket costs &f%cost% &9to buy!"
 

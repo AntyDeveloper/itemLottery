@@ -1,5 +1,7 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.server.utils.handlers.PermissionsHandler;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,7 +35,9 @@ public class EndLottery {
     /**
      * Instance for sending messages to players.
      */
-    private final Message message = new Message();
+
+
+    private final Message message = ItemLottery.message;
 
 
     /**
@@ -43,6 +47,7 @@ public class EndLottery {
      */
     public void drawEndLottery(Player player) {
         try {
+            PermissionsHandler.hasPermission(player, "lottery.end", "Permissions");
             Map<String, Object> serialized = DrawManager.getDrawItem();
             int winnersCount = DrawManager.getWinnersCount();
 

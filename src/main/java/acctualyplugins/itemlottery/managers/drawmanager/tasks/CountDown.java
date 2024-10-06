@@ -34,7 +34,7 @@ public class CountDown {
      * @param TicketPrice  The price of a ticket.
      */
     public void countdownTask(Map<String, Object> serialized, int WinnersCount, Player player,
-                              boolean TicketUse, int TicketPrice) {
+                              boolean TicketUse, double TicketPrice) {
         int test = (int) (remainingTime - bossBar.progress() * remainingTime);
         float progress = (float) test / remainingTime;
         int messageInterval = 15;

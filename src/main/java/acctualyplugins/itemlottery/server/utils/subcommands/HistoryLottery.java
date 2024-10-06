@@ -1,5 +1,7 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.server.utils.handlers.PermissionsHandler;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +19,7 @@ public class HistoryLottery {
     /**
      * Instance for sending messages to players.
      */
-    private Message messageSend = new Message();
+    private final Message message = ItemLottery.getInstance().getMessage();
 
     /**
      * Shows the history of a lottery based on the log name.
@@ -27,6 +29,8 @@ public class HistoryLottery {
      * @param logName The name of the log to retrieve.
      */
     public void ShowHistoryLottery(Player player, String logName) {
+        PermissionsHandler.hasPermission(player, "lottery.end", "Permissions");
+
         // Retrieve the log by name
         Log log = new LogManager().getLog(logName);
 
@@ -45,18 +49,18 @@ public class HistoryLottery {
                 : item.getType().toString();
 
         // Send the log details to the player
-        messageSend.sendMessageComponent(player, "");
-        messageSend.sendMessageComponent(player, "&9LogId: &7 " + log.getLogName());
-        messageSend.sendMessageComponent(player, "&9LotteryExecutor &7" +
+        message.sendMessageComponent(player, "");
+        message.sendMessageComponent(player, "&9LogId: &7 " + log.getLogName());
+        message.sendMessageComponent(player, "&9LotteryExecutor &7" +
                 log.getLotteryExecutor());
-        messageSend.sendMessageComponent(player, "&9Item: &7" + displayName );
-        messageSend.sendMessageComponent(player, "&9Winner: &7" + log.getWinners());
-        messageSend.sendMessageComponent(player, "&9Lottery end &7" + log.isLotteryEnd());
-        messageSend.sendMessageComponent(player, "");
-        messageSend.sendMessageComponent(player, "[&7[&aClick&7] &9To summon winning item!]" +
+        message.sendMessageComponent(player, "&9Item: &7" + displayName );
+        message.sendMessageComponent(player, "&9Winner: &7" + log.getWinners());
+        message.sendMessageComponent(player, "&9Lottery end &7" + log.isLotteryEnd());
+        message.sendMessageComponent(player, "");
+        message.sendMessageComponent(player, "[&7[&aClick&7] &9To summon winning item!]" +
                 "(run_command=/lottery devitemgive "
                 + log.getLogName()
                 +")");
-        messageSend.sendMessageComponent(player, "");
+        message.sendMessageComponent(player, "");
     }
 }

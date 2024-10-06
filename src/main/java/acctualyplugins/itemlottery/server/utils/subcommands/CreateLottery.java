@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.server.utils.senders.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -9,8 +10,7 @@ import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
 import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import acctualyplugins.itemlottery.server.utils.handlers.*;
-import acctualyplugins.itemlottery.server.utils.senders.Message;
-import acctualyplugins.itemlottery.server.utils.senders.Title;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +35,9 @@ public class CreateLottery {
     private final DrawManager drawItem = new DrawManager();
 
     /**
-     * Instance for sending messages to players.
-     */
-    private final Message message = new Message();
-
-    /**
      * Instance for sending titles to players.
      */
-    private final Title title = new Title();
+    private final Title title = ItemLottery.getInstance().getTitle();
 
     /**
      * Executes the Create Lottery command.
@@ -55,14 +50,14 @@ public class CreateLottery {
      * @param ticketPrice The price of the ticket.
      */
     public void createLotteryCommand(Player player, int time, int itemCount, int winnerCount, boolean ticketUse,
-                                     int ticketPrice) {
+                                     double ticketPrice) {
         ConfigurationSection settings = ItemLottery.getInstance().getConfig().getConfigurationSection("settings");
         assert settings != null;
         boolean playerUse = settings.getBoolean("playerLotteryUse");
         boolean ticketSystem = settings.getBoolean("ticketSystem");
         try {
-            if (PermissionsHandler.hasPermission(player, "lottery.bypass",
-                    "Cooldown")) { CooldownHandlers.checkPlayerCooldown(player); }
+            if (!player.hasPermission("lottery.bypass"))
+            { CooldownHandlers.checkPlayerCooldown(player); }
 
             TicketHandlers ticketHandlers = new TicketHandlers();
 
@@ -105,7 +100,7 @@ public class CreateLottery {
             player.getInventory().getItemInMainHand().setAmount(newAmount);
             drawItem.drawItem(serialized, time, winnerCount, player, ticketUse, ticketPrice);
             LogManager.createNewLog(itemStackStatic, player, winnerCount);
-
+            CooldownHandlers.setPlayerCooldown(player);
             BroadcastHandlers.broadcastStartMessage(onlinePlayers, displayName, ticketUse);
 
         } catch (Exception e) {

@@ -24,7 +24,7 @@ permissions:
   lottery.create:
     description: Allows you to admin lottery create command!
     children:
-      lottery.playeruse: true
+      lottery.playeruse: false
       lottery.bypass: true
   lottery.history:
     description: Allows you to lottery history command!

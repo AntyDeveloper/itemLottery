@@ -67,9 +67,9 @@ public class CreateLotteryCommand  {
                             boolean ticketsToLottery = ticketsToLotteryArg != null ? ticketsToLotteryArg : false;
 
                             String ticketPriceArg = (String) args.get("ticket price");
-                            int ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : 0;
+                            double ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : null;
 
-                            ticketprice = (double) ticketPrice;
+                            ticketprice = ticketPrice;
 
                             new CreateLottery().createLotteryCommand(player, time, priceCount, winnerCount,
                                     ticketsToLottery, ticketPrice);
@@ -147,5 +147,10 @@ public class CreateLotteryCommand  {
                         })
                 )
                 .register();
+    }
+
+
+    public static void setTicketprice(Double ticketprice) {
+        CreateLotteryCommand.ticketprice = ticketprice;
     }
 }
