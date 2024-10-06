@@ -25,14 +25,15 @@ import java.util.ArrayList;
  * Handles the initialization and shutdown of the plugin.
  */
 public final class ItemLottery extends JavaPlugin {
+
     /**
      * Singleton instance of the ItemLottery plugin.
      * -- GETTER --
      *  Retrieves the singleton instance of the ItemLottery plugin.
      *
      * @return The singleton instance.
-
      */
+
     @Getter
     public static ItemLottery instance;
     private final CreateConfigFile createConfigFile = new CreateConfigFile();
@@ -90,9 +91,6 @@ public final class ItemLottery extends JavaPlugin {
 
         ServiceManager.setLogsList();
 
-
-
-
         // Register vault
         new VaultManager().registerVault();
 
@@ -119,6 +117,7 @@ public final class ItemLottery extends JavaPlugin {
      * Called when the plugin is disabled.
      * Saves cooldowns and disables the CommandAPI.
      */
+
     @Override
     public void onDisable() {
         CommandAPI.onDisable();

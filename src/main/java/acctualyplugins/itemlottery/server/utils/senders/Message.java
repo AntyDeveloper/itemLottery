@@ -15,6 +15,7 @@ public class Message {
     /**
      * Formatter instance for formatting chat messages.
      */
+
     private static final Formatters formatters = new Formatters();
 
     /**
@@ -24,6 +25,7 @@ public class Message {
      * @param commandSender The command sender to whom the message is being sent.
      * @param MessageComponent The message component to send.
      */
+
     public void sendMessageComponent(
             final CommandSender commandSender,
             @NonNull String MessageComponent

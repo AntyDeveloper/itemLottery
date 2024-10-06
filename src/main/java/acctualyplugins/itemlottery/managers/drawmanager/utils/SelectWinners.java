@@ -9,6 +9,7 @@ import java.util.List;
 
 import static acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.TaskManager.selectedPlayers;
 
+
 /**
  * Utility class for selecting winners for the lottery draw.
  */
@@ -20,16 +21,18 @@ public class SelectWinners {
      *
      * @param WinnersCount The number of winners to be selected.
      */
-    public static void selectWinners(int WinnersCount) {
-        while (Bukkit.getOnlinePlayers().size() > WinnersCount) {
-            int randomIndex = (int) (Math.random() * Bukkit.getOnlinePlayers().size());
-            List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+    public static List<Player> selectWinners(int WinnersCount) {
+        selectedPlayers.clear();
+        List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (int i = 0; i < WinnersCount && !onlinePlayers.isEmpty(); i++) {
+            int randomIndex = (int) (Math.random() * onlinePlayers.size());
             Player selectedPlayer = onlinePlayers.get(randomIndex);
 
             if (!selectedPlayers.contains(selectedPlayer)) {
                 selectedPlayers.add(selectedPlayer);
             }
         }
+        return selectedPlayers;
     }
 
     /**
@@ -38,15 +41,18 @@ public class SelectWinners {
      *
      * @param WinnersCount The number of winners to be selected.
      */
-    public static void selectWinnersWithTickers(int WinnersCount) {
-        while (Bukkit.getOnlinePlayers().size() > WinnersCount) {
-            int randomIndex = (int) (Math.random() * Bukkit.getOnlinePlayers().size());
-            List<Player> onlinePlayers = new ArrayList<>(ServiceManager.tickets);
+    public static List<Player> selectWinnersWithTicket(int WinnersCount) {
+        selectedPlayers.clear();
+        List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (int i = 0; i < WinnersCount && !onlinePlayers.isEmpty(); i++) {
+            int randomIndex = (int) (Math.random() * onlinePlayers.size());
             Player selectedPlayer = onlinePlayers.get(randomIndex);
 
             if (!selectedPlayers.contains(selectedPlayer)) {
                 selectedPlayers.add(selectedPlayer);
             }
         }
+        return selectedPlayers;
     }
+
 }

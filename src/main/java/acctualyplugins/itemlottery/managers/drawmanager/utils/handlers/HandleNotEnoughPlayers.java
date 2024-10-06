@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery.managers.drawmanager.utils.handlers;
 
+import acctualyplugins.itemlottery.ItemLottery;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -28,13 +29,19 @@ public class HandleNotEnoughPlayers {
      * @param bossBar      The boss bar to be hidden from the players' view.
      * @param task         The task to be canceled.
      */
-    public static void handleNotEnoughPlayers(Map<String, Object> serialized, Player lotteryMaker, BossBar bossBar,
+    public static boolean handleNotEnoughPlayers(Map<String, Object> serialized, Player lotteryMaker, BossBar bossBar,
                                               BukkitTask task) {
-        new RemoveBossbar().removeBossbar(bossBar);
-        Bukkit.broadcastMessage(cc(getLanguageMessage.getLanguageMessage("NotEnoughOnlinePlayers"
-                , "Lottery")));
-        ItemStack deserializedItem = ItemStack.deserialize(serialized);
-        lotteryMaker.getInventory().addItem(deserializedItem);
-        task.cancel();
+        if(!Bukkit.getOnlinePlayers().isEmpty()) {
+            new RemoveBossbar().removeBossbar(bossBar);
+            Bukkit.broadcastMessage(cc(getLanguageMessage.getLanguageMessage("NotEnoughOnlinePlayers"
+                    , "Lottery")));
+            ItemStack deserializedItem = ItemStack.deserialize(serialized);
+            lotteryMaker.getInventory().addItem(deserializedItem);
+
+            task.cancel();
+            ItemLottery.getInstance().adventure().players().clearTitle();
+            return false;
+        }
+        return true;
     }
 }

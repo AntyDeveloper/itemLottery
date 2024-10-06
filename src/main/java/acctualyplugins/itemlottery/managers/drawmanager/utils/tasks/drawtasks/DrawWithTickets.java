@@ -36,21 +36,20 @@ public class DrawWithTickets {
             return;
         }
 
-        SelectWinners.selectWinnersWithTickers(WinnersCount);
+        List<Player> winners =  SelectWinners.selectWinnersWithTicket(WinnersCount);
 
-        NotEnoughPlayers.notEnoughPlayersBuyTicket(selectedPlayers, lotteryMaker, bossBar);
+        NotEnoughPlayers.notEnoughPlayersBuyTicket(winners, lotteryMaker, bossBar);
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() ->
-                announceWinnersAnimation(String.join(", ", GetNames.getNames(selectedPlayers)),
+                announceWinnersAnimation(String.join(", ", GetNames.getNames(winners)),
                 bossBar));
 
         long delayInSeconds = 5;
         future.thenRunAsync(() -> {
-            announceWinners(String.join(", ", GetNames.getNames(selectedPlayers)));
-            distributeRewards(serialized, selectedPlayers, WinnersCount);
-            logWinners(String.join(", ", GetNames.getNames(selectedPlayers)));
+            announceWinners(String.join(", ", GetNames.getNames(winners)));
+            distributeRewards(serialized, winners, WinnersCount);
+            logWinners(String.join(", ", GetNames.getNames(winners)));
         }, CompletableFuture.delayedExecutor(delayInSeconds, TimeUnit.SECONDS));
         task.cancel();
-        selectedPlayers.clear();
     }
 }

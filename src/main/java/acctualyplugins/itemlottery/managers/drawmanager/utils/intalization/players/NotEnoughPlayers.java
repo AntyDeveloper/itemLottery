@@ -33,7 +33,7 @@ public class NotEnoughPlayers {
      * @return True if there are not enough players, false otherwise.
      */
     public static boolean notEnoughPlayers(List<Player> onlinePlayers, int WinnersCount) {
-        return onlinePlayers.isEmpty() || WinnersCount > onlinePlayers.size();
+        return  WinnersCount > onlinePlayers.size();
     }
 
     public static boolean notEnoughPlayersBuyTicket(List<Player> players, Player player, BossBar bossBar) {

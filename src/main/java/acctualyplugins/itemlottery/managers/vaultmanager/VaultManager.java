@@ -4,6 +4,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.vaultmanager.utils.SetupEconomy;
 
+import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.getServer;
+
 /**
  * Manager class for handling Vault integration.
  */
@@ -18,7 +21,11 @@ public class VaultManager {
      */
     public void registerVault() {
         if(settings.getBoolean("ticketSystem")) {
-            SetupEconomy.setupEconomy();
+            if(!SetupEconomy.setupEconomy()) {
+                getServer().getPluginManager().disablePlugin(ItemLottery.getInstance());
+                return;
+            };
+
         }
     }
 }

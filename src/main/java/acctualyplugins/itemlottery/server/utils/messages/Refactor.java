@@ -17,15 +17,15 @@ public class Refactor {
      * @param player The player whose name will replace the placeholders.
      * @return The refactored chat message as a Component.
      */
-    public Component ChatRefactor(String text, Player player) {
+    public Component chatRefactor(String text, Player player) {
         // Replace placeholders with the player's name
         String newtext = text.replaceAll("%player%", player.getName());
         newtext = newtext.replaceAll("%players%", player.getName());
         newtext = newtext.replaceAll("<center>", "");
         Component replacedColors = new MineDown(newtext).toComponent();
 
-        // Center the text if it contains the <center> tag
         if (text.contains("<center>")) {
+        // Center the text if it contains the <center> tag
             val spaces = Centering.spacePrefix(newtext);
             return new MineDown(spaces + newtext).toComponent();
         }

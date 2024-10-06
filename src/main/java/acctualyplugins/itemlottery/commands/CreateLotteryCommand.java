@@ -10,7 +10,6 @@ import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
 import acctualyplugins.itemlottery.server.utils.subcommands.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class CreateLotteryCommand  {
 
-    private static Double ticketprice = null;
+    private static Double ticketprice;
     private final ArrayList<Log> logs = ItemLottery.getInstance().getLogList();
 
     /**
@@ -80,7 +79,7 @@ public class CreateLotteryCommand  {
                         .withAliases("tbuy")
                         .executes((sender, args) -> {
                             Player player = (Player) sender;
-                            new ButTicketLottery().BuyTicketLotteryCommand(player);
+                            new BuyTicketLottery().BuyTicketLotteryCommand(player);
                         })
                 )
                 .withSubcommand(new CommandAPICommand("history")
@@ -97,6 +96,7 @@ public class CreateLotteryCommand  {
                         .executes((sender, args) -> {
                             Player player = (Player) sender;
                             List<Log> theList = (List<Log>) args.get("logName");
+                            assert theList != null;
                             for (Log logName : theList) {
                                 new HistoryLottery().ShowHistoryLottery(player, logName.getLogName());
                             }
@@ -125,6 +125,8 @@ public class CreateLotteryCommand  {
                         })
                 )
                 .withSubcommand(new CommandAPICommand("giveitem")
+                        .withPermission("lottery.giveitem")
+                        .withFullDescription("Command to summmon reward lottery item!")
                         .withArguments(new ListArgumentBuilder<Log>("logName").allowDuplicates(false)
                                 .withList(logs.stream()
                                         .sorted(Comparator.comparing((Log log) -> LocalDateTime.parse(log.getLogName(),
@@ -138,6 +140,7 @@ public class CreateLotteryCommand  {
                             Player player = (Player) sender;
 
                             List<Log> theList = (List<Log>) args.get("logName");
+                            assert theList != null;
                             for (Log logName : theList) {
                                 new GiveItemLottery(player, logName.getLogName());
                             }

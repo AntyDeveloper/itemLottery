@@ -21,6 +21,6 @@ public class Formatters {
      * @return The formatted chat message as a Component.
      */
     public Component chatFormater(String text, Player player) {
-        return refactor.ChatRefactor(text, player);
+        return refactor.chatRefactor(text, player);
     }
 }

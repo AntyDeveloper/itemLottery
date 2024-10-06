@@ -35,6 +35,7 @@ public class EndLottery {
      */
     private final Message message = new Message();
 
+
     /**
      * Ends the lottery draw and announces the end to the player.
      *
@@ -45,7 +46,7 @@ public class EndLottery {
             Map<String, Object> serialized = DrawManager.getDrawItem();
             int winnersCount = DrawManager.getWinnersCount();
 
-            TaskHandler.isTaskRunning(player);
+           TaskHandler.isTaskRunning(player, false);
 
             DrawHandlers.selectDrawManager(serialized, bossBar, winnersCount, player, DrawManager.ticketUse);
             message.sendMessageComponent(player, getLanguageMessage
@@ -62,7 +63,7 @@ public class EndLottery {
      * @param player The player executing the command.
      */
     public void forceEndLottery(Player player) {
-        TaskHandler.isTaskRunning(player);
+        TaskHandler.isTaskRunning(player, false);
 
         DrawManager.task.cancel();
         TaskManager.selectedPlayers.clear();

@@ -67,7 +67,7 @@ public class CountDown {
                 }
 
                 Audience audience = ItemLottery.getInstance().adventure().player(playerSendBar);
-                bossBar.name(refactor.ChatRefactor(BosBarTitle, playerSendBar));
+                bossBar.name(refactor.chatRefactor(BosBarTitle, playerSendBar));
                 bossBar.addViewer(audience);
                 bossBar.progress(progress);
             }

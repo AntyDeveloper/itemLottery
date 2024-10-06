@@ -18,26 +18,31 @@ public class SetupEconomy {
      * Sets up the economy instance.
      * If the Vault plugin is not found, disables the ItemLottery plugin.
      * If the economy provider is not found, disables the ItemLottery plugin.
+     *
      */
-    public static void setupEconomy() {
+    public static boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
 
             ItemLottery.getInstance().getLogger()
                     .severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(ItemLottery.getInstance());
+            return false;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             ItemLottery.getInstance().getLogger()
                     .severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(ItemLottery.getInstance());
+            return false;
         }
-        assert rsp != null;
+
         econ = rsp.getProvider();
         if(econ == null) {
             ItemLottery.getInstance().getLogger()
                     .severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(ItemLottery.getInstance());
         }
+
+        return econ != null;
     }
 }

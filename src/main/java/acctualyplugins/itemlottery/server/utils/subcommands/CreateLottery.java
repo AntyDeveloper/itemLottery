@@ -66,13 +66,9 @@ public class CreateLottery {
 
             TicketHandlers ticketHandlers = new TicketHandlers();
 
-            if(!ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem)) {
-                return;
-            };
+            if(!ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem))
 
-            if(TaskHandler.isTaskRunning(player)) {
-                return;
-            };
+            TaskHandler.isTaskRunning(player, true);
 
             if(!NotEnoughPlayers.notEnoughPlayers(winnerCount, player)) {
                 return;

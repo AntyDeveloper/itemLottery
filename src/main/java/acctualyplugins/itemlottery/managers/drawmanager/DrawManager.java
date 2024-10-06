@@ -54,7 +54,7 @@ public class DrawManager {
     public void drawItem(Map<String, Object> serialized, int drawTime, int winnersCount, Player player,
                          boolean ticketUse, int ticketPrice) {
 
-        bossBar = BossBar.bossBar(REFACTOR.ChatRefactor("&aLottery started!", player),
+        bossBar = BossBar.bossBar(REFACTOR.chatRefactor("&aLottery started!", player),
                 1, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
 
         remainingTime = drawTime;

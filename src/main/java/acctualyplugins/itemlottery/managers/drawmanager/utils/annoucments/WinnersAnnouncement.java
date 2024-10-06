@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery.managers.drawmanager.utils.annoucments;
 
+import acctualyplugins.itemlottery.server.utils.handlers.TaskHandler;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -7,6 +8,7 @@ import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 
 import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.cc;
+import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.task;
 
 /**
  * Utility class for announcing the winners of the lottery draw.

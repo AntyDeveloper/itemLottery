@@ -19,6 +19,7 @@ Messages:
     ItemInHand: "&8» &cYou must hold an item in your hand!"
     Time: "&8» &cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
     CommandRun: "&8» &9The lottery is already active!"
+    CommandNotRun: "&8» &9The lottery is already active!"
     LogNotFound: "&8» &9Log not found!"
     ForeEndBroadcast: "&8» &9The lottery has been forcibly ended!"
     ForceEnd: "&8» &9You have ended the lottery!"

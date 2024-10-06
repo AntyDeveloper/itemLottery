@@ -1,7 +1,9 @@
 package acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.drawtasks;
 
+import acctualyplugins.itemlottery.ItemLottery;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import acctualyplugins.itemlottery.managers.drawmanager.utils.SelectWinners;
 import acctualyplugins.itemlottery.managers.drawmanager.utils.intalization.players.GetNames;
@@ -33,8 +35,9 @@ public class Draw {
             return;
         }
 
-        SelectWinners.selectWinners(WinnersCount);
-        String WinnersNameList = String.join(", ", GetNames.getNames(selectedPlayers));
+        List<Player> winners = SelectWinners.selectWinners(WinnersCount);
+
+        String WinnersNameList = String.join(", ", GetNames.getNames(winners));
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> announceWinnersAnimation(WinnersNameList,
                 bossBar));
@@ -42,11 +45,11 @@ public class Draw {
         long delayInSeconds = 5;
         future.thenRunAsync(() -> {
             announceWinners(WinnersNameList);
-            distributeRewards(serialized, selectedPlayers, WinnersCount);
+            distributeRewards(serialized, winners, WinnersCount);
             logWinners(WinnersNameList);
         }, CompletableFuture.delayedExecutor(delayInSeconds, TimeUnit.SECONDS));
         task.cancel();
-        selectedPlayers.clear();
+
     }
 
 }

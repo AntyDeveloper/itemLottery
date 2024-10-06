@@ -23,7 +23,6 @@ public class TicketHandlers {
      * Adds a ticket to the player.
      *
      * @param player The player to whom the ticket is being added.
-     * @param price The price of the ticket.
      */
     public void addTicket(Player player) {
         ServiceManager.tickets.add(player);
@@ -65,13 +64,13 @@ public class TicketHandlers {
      * If the player does not have a ticket, adds a ticket to the player.
      *
      * @param player The player whose ticket status is being checked.
-     * @param price The price of the ticket.
      */
     public void checkTicket(Player player) {
         if(ServiceManager.tickets.contains(player)) {
             // Player has ticket
             message.sendMessageComponent(player, getLanguageMessage.getLanguageMessage("TicketBought",
                     "LotteryCommandArgs"));
+            return;
         } else {
             addTicket(player);
         }
