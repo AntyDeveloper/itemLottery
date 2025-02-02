@@ -24,26 +24,24 @@ public class TaskHandler {
      * If a task is running, sends a message to the player.
      *
      * @param player The player initiating the check.
-     * @return True if no task is running, false otherwise.
      */
-    public static boolean isTaskRunning(Player player, boolean status) {
+    public static void isTaskRunning(Player player, boolean status) {
         if (status)
             if (DrawManager.isRunning()) {
                 message.sendMessageComponent(player,
                         getLanguageMessage.getLanguageMessage("CommandRun",
                                 "LotteryCommandArgs"));
-                return false;
+                return;
             }
         if(!status) {
-
         if (!DrawManager.isRunning()) {
             message.sendMessageComponent(player,
                     getLanguageMessage.getLanguageMessage("CommandNotRun",
                             "LotteryCommandArgs"));
-            return false;
+            return;
         }
+        return;
     }
 
-        return true;
     }
 }

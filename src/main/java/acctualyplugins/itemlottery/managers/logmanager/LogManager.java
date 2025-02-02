@@ -25,8 +25,17 @@ public class LogManager {
      * @param player The player who executed the lottery.
      * @param WinnerCount The number of winners in the lottery.
      */
-    public static void createNewLog(ItemStack itemStack, Player player, int WinnerCount) {
-        new LogExecute(player, WinnerCount, itemStack);
+    public static Log createNewLog(ItemStack itemStack, Player player, int WinnerCount, int duration, int elapsedTime,
+                                    boolean ticketUse, double ticketCost) {
+        long timestamp = System.currentTimeMillis(); // Add timestamp
+        LogExecute logExecute = new LogExecute(player, WinnerCount, itemStack, duration, elapsedTime, ticketUse, ticketCost, timestamp);
+        return logExecute.getLog();
+    }
+
+    public static Log createNewLog(ItemStack itemStack, Player player, int WinnerCount, int duration, int elapsedTime,
+                                   boolean ticketUse, double ticketCost, long timestamp) {
+        LogExecute logExecute = new LogExecute(player, WinnerCount, itemStack, duration, elapsedTime, ticketUse, ticketCost, timestamp);
+        return logExecute.getLog();
     }
 
     /**

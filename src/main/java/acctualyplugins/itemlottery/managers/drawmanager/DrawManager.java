@@ -1,5 +1,7 @@
 package acctualyplugins.itemlottery.managers.drawmanager;
 
+import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import lombok.Getter;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
@@ -49,8 +51,8 @@ public class DrawManager {
      * @param player The player who initiated the lottery.
 
      */
-    public void drawItem(Map<String, Object> serialized, int drawTime, int winnersCount, Player player,
-                         boolean ticketUse, double ticketPrice) {
+    public static void drawItem(Map<String, Object> serialized, int drawTime, int winnersCount, Player player,
+                                boolean ticketUse, double ticketPrice) {
 
         bossBar = BossBar.bossBar(REFACTOR.chatRefactor("&aLottery started!", player),
                 1, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
@@ -62,8 +64,14 @@ public class DrawManager {
         task = Bukkit.getScheduler().runTaskTimer(ItemLottery.getInstance(),
                 () -> countDown.countdownTask(serialized,
                         winnersCount, player, ticketUse, DrawManager.ticketPrice), 0, 20);
-    }
 
+        // Task to update the log every 10 seconds
+        Bukkit.getScheduler().runTaskTimer(ItemLottery.getInstance(), () -> {
+
+            LogManager.lastLog.set("ElapsedTime", drawTime - 10);
+            CreateLogsFile.save();
+        }, 200, 200); // 200 ticks = 10 seconds
+    }
     /**
      * Gets the serialized data of the lottery item.
      *

@@ -1,15 +1,16 @@
 package acctualyplugins.itemlottery.server.utils.handlers;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 import acctualyplugins.itemlottery.server.utils.senders.Message;
 
+import java.util.Map;
 import java.util.Objects;
 
-import static acctualyplugins.itemlottery.commands.CreateLotteryCommand.enchantmentsToString;
 import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.cc;
 
 /**
@@ -77,5 +78,23 @@ public class ItemStackHandlers {
         }
 
         return cc(displayName + enchants);
+    }
+
+    /**
+     * Converts the enchantments of an ItemStack to a string representation.
+     *
+     * @param itemStack The ItemStack containing enchantments.
+     * @return A string representation of the enchantments.
+     */
+    public static String enchantmentsToString(ItemStack itemStack) {
+        StringBuilder enchants = new StringBuilder();
+        for (Map.Entry<Enchantment, Integer> entry : itemStack.getEnchantments().entrySet()) {
+            enchants.append(entry.getKey().getKey().getKey()).append(" ").append(entry.getValue()).append(", ");
+        }
+        // Remove the trailing comma and space
+        if (enchants.length() > 0) {
+            enchants.setLength(enchants.length() - 2);
+        }
+        return enchants.toString();
     }
 }

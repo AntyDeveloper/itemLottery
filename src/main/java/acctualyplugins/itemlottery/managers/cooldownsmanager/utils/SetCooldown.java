@@ -20,10 +20,7 @@ public class SetCooldown {
      */
     public void setCooldown(String playerName) {
         cooldowns.put(playerName, System.currentTimeMillis());
-<<<<<<< HEAD
         new CooldownsManager();
-=======
->>>>>>> 339cc54c352526c350929d319ced8e0cccf49770
         CooldownsManager.saveCooldowns();
     }
 }

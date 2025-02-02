@@ -22,7 +22,6 @@ import static acctualyplugins.itemlottery.managers.drawmanager.utils.handlers.Ha
 import static acctualyplugins.itemlottery.managers.drawmanager.utils.intalization.players.NotEnoughPlayers.notEnoughPlayers;
 import static acctualyplugins.itemlottery.managers.drawmanager.utils.logs.UpdateLogs.logWinners;
 import static acctualyplugins.itemlottery.managers.drawmanager.utils.rewards.DistributeRewards.distributeRewards;
-import static acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.TaskManager.selectedPlayers;
 
 public class Draw {
     public static void draw(Map<String, Object> serialized, int WinnersCount, Player lotteryMaker, BossBar bossBar) {

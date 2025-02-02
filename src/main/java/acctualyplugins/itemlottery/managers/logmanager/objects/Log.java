@@ -2,42 +2,27 @@ package acctualyplugins.itemlottery.managers.logmanager.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.bukkit.configuration.ConfigurationSection;
+import lombok.Setter;
 
-/**
- * Represents a log entry for a lottery event.
- */
+import java.util.Map;
+
 @Getter
+@Setter
 @AllArgsConstructor
 public class Log {
+    private String logName;
+    private String playerName;
+    private Map<String, Object> itemStack;
+    private String winners;
+    private int winnerCount;
+    private boolean lotteryEnd;
+    private int duration;
+    private int elapsedTime;
+    private boolean ticketUse;
+    private double ticketCost;
+    private long timestamp;
 
-    /**
-     * The name of the log entry.
-     */
-    private final String logName;
-
-    /**
-     * The name of the player who executed the lottery.
-     */
-    private final String LotteryExecutor;
-
-    /**
-     * The configuration section containing the item stack details.
-     */
-    private final ConfigurationSection itemStack;
-
-    /**
-     * The names of the winners.
-     */
-    private final String Winners;
-
-    /**
-     * The number of winners in the lottery.
-     */
-    private final int WinnersCount;
-
-    /**
-     * Indicates whether the lottery has ended.
-     */
-    private final boolean LotteryEnd;
+    public boolean matchesFilter(String filter) {
+        return logName.equals(filter);
+    }
 }

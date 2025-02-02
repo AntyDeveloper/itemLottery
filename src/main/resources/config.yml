@@ -9,6 +9,7 @@ settings:
   itemTypeDisplay: false
   #Buy ticket to lottery (you need vault)
   ticketSystem: false
+  ticketQueue: true
 
 Messages:
   Prefix: "&7[&9Lottery&7] &8» "
@@ -16,26 +17,6 @@ Messages:
   Permissions: "&cYou don't have permission!"
   Cooldown: "&9Time left to create lottery: &7%time%"
   LotteryCommandArgs:
-<<<<<<< HEAD
-    ItemInHand: "&8» &cYou must hold an item in your hand!"
-    Time: "&8» &cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
-    CommandRun: "&8» &9The lottery is already active!"
-    CommandNotRun: "&8» &9The lottery is already active!"
-    LogNotFound: "&8» &9Log not found!"
-    ForeEndBroadcast: "&8» &9The lottery has been forcibly ended!"
-    ForceEnd: "&8» &9You have ended the lottery!"
-    Error: "&8» &cSomething went wrong"
-    ItemCount: "&8» &cThe number of items must be a positive number."
-    ItemInHandCount: "&8» &cYou don't have enough of this item"
-    WinnerCount: "&8» &cYou must set an even number of winners."
-    ItemAndWinnerCount: "&8» The number of winners and the number of prizes must be divisible by each other"
-    LotteryNotActive: "&8» &cThe lottery is not active!"
-    NotEnoughOnlinePlayers: "&8» &cThere are not enough players online to do the draw!"
-    NotEnoughItems: "&8» &cThere are not enough items to do the draw!"
-    NotEnoughMoney: "&8» &cYou don't have enough money to buy a ticket!"
-    TicketBought: "&8» &9You bought a ticket for the lottery!"
-    TicketSystemDisabled: "&8» &cThe ticket system is disabled!"
-=======
     ItemInHand: "&cYou must hold an item in your hand!"
     Time: "&cYou must set the lottery time in seconds, and the time must be longer than 60 seconds!"
     CommandRun: "&9The lottery is already active!"
@@ -53,7 +34,7 @@ Messages:
     NotEnoughMoney: "&cYou don't have enough money to buy a ticket!"
     TicketBought: "&9You bought a ticket for the lottery!"
     TicketSystemDisabled: "&cThe ticket system is disabled!"
->>>>>>> 339cc54c352526c350929d319ced8e0cccf49770
+    MismatchWinnerItemCount: "&cThe number of winners and the number of prizes must be the same or even!"
   Lottery:
     StartTitle: "Lottery"
     StartSubTitle: "&9&lHas started!"
@@ -63,4 +44,6 @@ Messages:
     WinMessage: "You won the lottery!"
     NotEnoughOnlinePlayers: "&cThere are not enough players online to do the draw!"
     TicketCostMessage: "&9The ticket costs &f%cost% &9to buy!"
-
+  LotteryRunning: "&cThe lottery is currently running. Please wait until it finishes."
+  QueueFull: "&cThe lottery queue is full. Please try again later."
+  AddedToQueue: "&9The lottery is currently running. Your lottery has been added to the queue."

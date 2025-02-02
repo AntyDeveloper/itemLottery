@@ -1,5 +1,8 @@
+// LogExecute.java
 package acctualyplugins.itemlottery.managers.logmanager.execute;
 
+import acctualyplugins.itemlottery.managers.logmanager.LogManager;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,32 +13,13 @@ import acctualyplugins.itemlottery.services.ServiceManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Class for executing log operations related to the lottery.
- */
 public class LogExecute {
+    private final Log log;
 
-    /**
-     * Retrieves the logs configuration file.
-     *
-     * @return The logs configuration file.
-     */
-    private FileConfiguration getLogs() {
-        return CreateLogsFile.get();
-    }
-
-    /**
-     * Constructor for creating a new log entry for a lottery execution.
-     * Initializes the log entry with the executor's name, item details, winner count, and other relevant information.
-     *
-     * @param player The player who executed the lottery.
-     * @param WinnerCount The number of winners in the lottery.
-     * @param itemStack The item stack used in the lottery.
-     */
-    public LogExecute(Player player, int WinnerCount, ItemStack itemStack) {
+    public LogExecute(Player player, int winnerCount, ItemStack itemStack, int duration, int elapsedTime, boolean ticketUse, double ticketCost, long timestamp) {
         ConfigurationSection logs = getLogs().getConfigurationSection("logs");
 
-        if(logs == null) {
+        if (logs == null) {
             logs = getLogs().createSection("logs");
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm/dd:MM:yy");
@@ -44,11 +28,39 @@ public class LogExecute {
         ConfigurationSection newLog = logs.createSection(formattedDate);
         newLog.set("LotteryExecutor", player.getName());
         newLog.set("Item", itemStack.serialize());
-        newLog.set("WinnersCount", WinnerCount);
+        newLog.set("WinnersCount", winnerCount);
         newLog.set("Winner", "");
-        newLog.set("LotteryDraw", false);
+        newLog.set("LotteryEnd", false);
+        newLog.set("Duration", duration);
+        newLog.set("ElapsedTime", elapsedTime);
+        newLog.set("TicketUse", ticketUse);
+        newLog.set("TicketCost", ticketCost);
+        newLog.set("Timestamp", timestamp); // Set the timestamp
+        LogManager.lastLog = newLog;
         CreateLogsFile.save();
         CreateLogsFile.reload();
         ServiceManager.setLogsList();
+
+        this.log = new Log(
+            formattedDate,
+            player.getName(),
+            itemStack.serialize(),
+            "",
+            winnerCount,
+            false,
+            duration,
+            elapsedTime,
+            ticketUse,
+            ticketCost,
+            timestamp // Pass the timestamp
+        );
+    }
+
+    private FileConfiguration getLogs() {
+        return CreateLogsFile.get();
+    }
+
+    public Log getLog() {
+        return log;
     }
 }

@@ -1,5 +1,9 @@
+// CreateLottery.java
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.LotteryTask;
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.queue.LotteryQueue;
+import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
 import acctualyplugins.itemlottery.server.utils.senders.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -11,66 +15,39 @@ import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import acctualyplugins.itemlottery.server.utils.handlers.*;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import static acctualyplugins.itemlottery.server.utils.handlers.ItemStackHandlers.getDisplayName;
 import static acctualyplugins.itemlottery.server.utils.handlers.ItemStackHandlers.updateItemStackAmount;
 
-/**
- * Class for handling the Create Lottery command.
- */
 public class CreateLottery {
-    /**
-     * Instance for retrieving language messages.
-     */
     private final GetLanguageMessage getLanguageMessage = new GetLanguageMessage();
+    private final Title title = ItemLottery.getInstance().title;
 
-    /**
-     * Instance for managing the draw of items.
-     */
-    private final DrawManager drawItem = new DrawManager();
-
-    /**
-     * Instance for sending titles to players.
-     */
-    private final Title title = ItemLottery.getInstance().getTitle();
-
-    /**
-     * Executes the Create Lottery command.
-     *
-     * @param player The player executing the command.
-     * @param time The duration of the lottery.
-     * @param itemCount The number of items in the lottery.
-     * @param winnerCount The number of winners in the lottery.
-     * @param ticketUse Whether tickets are used in the lottery.
-     * @param ticketPrice The price of the ticket.
-     */
     public void createLotteryCommand(Player player, int time, int itemCount, int winnerCount, boolean ticketUse,
-                                     double ticketPrice) {
+                                     double ticketPrice, long timestamp) {
         ConfigurationSection settings = ItemLottery.getInstance().getConfig().getConfigurationSection("settings");
         assert settings != null;
         boolean playerUse = settings.getBoolean("playerLotteryUse");
         boolean ticketSystem = settings.getBoolean("ticketSystem");
+
         try {
-            if (!player.hasPermission("lottery.bypass"))
-            { CooldownHandlers.checkPlayerCooldown(player); }
+            if (!player.hasPermission("lottery.bypass")) {
+                CooldownHandlers.checkPlayerCooldown(player);
+            }
 
             TicketHandlers ticketHandlers = new TicketHandlers();
 
-            if(!ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem))
-
-            TaskHandler.isTaskRunning(player, true);
-
-            if(!NotEnoughPlayers.notEnoughPlayers(winnerCount, player)) {
-                return;
-            };
+            if (!ticketHandlers.isTicketSystem(player, ticketUse, ticketSystem)) return;
 
             ItemStack itemStack = player.getInventory().getItemInMainHand();
             ItemStack itemStackStatic = itemStack.clone();
+
+            if (!NotEnoughPlayers.notEnoughPlayers(winnerCount, player, itemStack.getAmount())) {
+                return;
+            }
+
             ItemStackHandlers.isItemStackEmpty(itemStack, player);
 
             PermissionsHandler.playerUse(player, playerUse, itemStack, itemCount);
@@ -86,25 +63,23 @@ public class CreateLottery {
             CooldownHandlers.setPlayerCooldown(player);
 
             Map<String, Object> serialized = itemStackStatic.serialize();
-            List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-
-            onlinePlayers.forEach(playerSend ->
-                    title.showMyTitleWithDurations(playerSend,
-                            getLanguageMessage.getLanguageMessage("StartTitle", "Lottery"),
-                            getLanguageMessage.getLanguageMessage("StartSubTitle",
-                                    "Lottery") + " &7by &f" + playerSend.getName())
-
-            );
-
+            Log log = LogManager.createNewLog(itemStackStatic, player, winnerCount, time, 0, ticketUse, ticketPrice, timestamp);
+            LotteryTask lotteryTask = new LotteryTask(serialized, time, winnerCount, player, ticketUse, ticketPrice, () -> {
+                // Define what should happen when the lottery is complete
+            }, log);
 
             player.getInventory().getItemInMainHand().setAmount(newAmount);
-            drawItem.drawItem(serialized, time, winnerCount, player, ticketUse, ticketPrice);
-            LogManager.createNewLog(itemStackStatic, player, winnerCount);
+            LotteryQueue.addLotteryToQueue(lotteryTask);
             CooldownHandlers.setPlayerCooldown(player);
-            BroadcastHandlers.broadcastStartMessage(onlinePlayers, displayName, ticketUse);
 
         } catch (Exception e) {
             ItemLottery.getInstance().getLogger().info(e.toString());
         }
     }
+
+    public void createLotteryWithDelay(Player player, int delayInSeconds, int time, int itemCount, int winnerCount, boolean ticketUse, double ticketPrice) {
+        long timestamp = System.currentTimeMillis() + delayInSeconds * 1000L;
+        createLotteryCommand(player, time, itemCount, winnerCount, ticketUse, ticketPrice, timestamp);
+    }
+
 }

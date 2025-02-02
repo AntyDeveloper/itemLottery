@@ -3,6 +3,7 @@ package acctualyplugins.itemlottery.server.utils.subcommands;
 import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.server.utils.handlers.PermissionsHandler;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
@@ -30,24 +31,28 @@ public class GiveItemLottery {
         /**
          * Instance for managing logs.
          */
-        LogManager logManager = ItemLottery.getInstance().getLogManager();
+        LogManager logManager = ItemLottery.getInstance().logManager;
         Log logToGive = logManager.getLog(logName);
 
-        // Get the item stack configuration section from the log
-        ConfigurationSection itemSectionToGive = logToGive.getItemStack();
-        // Get the display name values from the item stack configuration section
-        Map<String, Object> displayNameToGive = itemSectionToGive.getValues(false);
+        // Convert the item stack map to a configuration section
+        ConfigurationSection itemSectionToGive = convertMapToConfigurationSection(logToGive.getItemStack());
 
-        // Deserialize the item stack from the display name values
-        ItemStack itemToGive = ItemStack.deserialize(displayNameToGive);
+        // Deserialize the item stack from the configuration section
+        ItemStack itemToGive = ItemStack.deserialize(itemSectionToGive.getValues(false));
 
         // Add the item to the player's inventory
         player.getInventory().addItem(itemToGive);
+
         // Send a message to the player indicating the item has been added
-        /**
-         * Instance for sending messages to players.
-         */
-        Message message = ItemLottery.getInstance().getMessage();
+        Message message = ItemLottery.getInstance().message;
         message.sendMessageComponent(player, "&aItem has been added!");
+    }
+
+    private ConfigurationSection convertMapToConfigurationSection(Map<String, Object> map) {
+        ConfigurationSection section = new MemoryConfiguration();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            section.set(entry.getKey(), entry.getValue());
+        }
+        return section;
     }
 }

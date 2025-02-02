@@ -15,7 +15,7 @@ import java.util.List;
  * Listener class for handling player join events.
  */
 public class PlayerJoinListener implements Listener {
-    private final Message message = ItemLottery.message;
+    private final Message message = ItemLottery.getInstance().message;
 
     /**
      * Event handler for when a player joins the server.

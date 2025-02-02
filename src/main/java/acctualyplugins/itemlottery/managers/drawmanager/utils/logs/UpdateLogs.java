@@ -24,7 +24,7 @@ public class UpdateLogs {
         ConfigurationSection log = logs.getConfigurationSection(logName);
         assert log != null;
         log.set("Winner", WinnersNameList);
-        log.set("LotteryDraw", true);
+        log.set("LotteryEnd", true);
         CreateLogsFile.save();
         CreateLogsFile.reload();
         ServiceManager.setLogsList();

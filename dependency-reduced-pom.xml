@@ -24,7 +24,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <id>shade</id>
@@ -52,6 +52,10 @@
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
     <repository>
+      <id>xenondevs</id>
+      <url>https://repo.xenondevs.xyz/releases</url>
+    </repository>
+    <repository>
       <id>sonatype</id>
       <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
@@ -70,6 +74,13 @@
       <artifactId>lombok</artifactId>
       <version>1.18.34</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>xyz.xenondevs.invui</groupId>
+      <artifactId>invui</artifactId>
+      <version>1.38</version>
+      <type>pom</type>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.github.MilkBowl</groupId>

@@ -1,56 +1,63 @@
 package acctualyplugins.itemlottery.services;
 
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import acctualyplugins.itemlottery.files.CreateLogsFile;
+import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.logmanager.objects.Log;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ServiceManager class for managing various services related to the item lottery.
- */
 public class ServiceManager {
-    /**
-     * Retrieves the logs configuration file.
-     *
-     * @return The FileConfiguration object for the logs.
-     */
-    private static FileConfiguration getLogs() { return CreateLogsFile.get(); }
-
-    /**
-     * List to store log objects.
-     */
     public static final ArrayList<Log> LogsList = new ArrayList<>();
 
-    /**
-     * Populates the LogsList with log entries from the configuration file.
-     */
     public static void setLogsList() {
-        ConfigurationSection logs = getLogs().getConfigurationSection("logs");
-        if(logs != null) {
-            for(String key : logs.getKeys(false)) {
+        ConfigurationSection logs = ItemLottery.getInstance().getConfig().getConfigurationSection("logs");
+        if (logs != null) {
+            for (String key : logs.getKeys(false)) {
                 ConfigurationSection log = logs.getConfigurationSection(key);
-                if(log != null) {
-                    LogsList.add(new Log(log.getName(), log.getString("LotteryExecutor"), log.
-                            getConfigurationSection("Item"),
+                if (log != null) {
+                    LogsList.add(new Log(
+                            log.getName(),
+                            log.getString("LotteryExecutor"),
+                            convertConfigurationSectionToMap(log.getConfigurationSection("Item")),
                             log.getString("Winner"),
-                            log.getInt("WinnersCount"), log.getBoolean("Lottery end")));
+                            log.getInt("WinnersCount"),
+                            log.getBoolean("LotteryEnd"),
+                            log.getInt("duration"),
+                            log.getInt("elapsedTime"),
+                            log.getBoolean("ticketUse"),
+                            log.getDouble("ticketCost"),
+                            log.getLong("timestamp")
+                    ));
                 }
             }
         }
     }
 
-    /**
-     * Map to store player cooldowns.
-     */
-    public static final Map<String, Long> cooldowns = new HashMap<>();
+    private static Map<String, Object> convertConfigurationSectionToMap(ConfigurationSection section) {
+        Map<String, Object> map = new HashMap<>();
+        if (section != null) {
+            for (String key : section.getKeys(false)) {
+                map.put(key, section.get(key));
+            }
+        }
+        return map;
+    }
 
-    /**
-     * List to store players with tickets.
-     */
+    public static void editElaspedTime(String logName, int elapsedTime) {
+        for (Log log : LogsList) {
+            if (log.getLogName().equals(logName)) {
+                ConfigurationSection logs = ItemLottery.getInstance().getConfig().getConfigurationSection("logs");
+                ConfigurationSection logSection = logs.getConfigurationSection(logName);
+                log.setElapsedTime(elapsedTime);
+                logSection.set("ElapsedTime", elapsedTime);
+                break;
+            }
+        }
+    }
+
+    public static final Map<String, Long> cooldowns = new HashMap<>();
     public static final ArrayList<Player> tickets = new ArrayList<>();
 }

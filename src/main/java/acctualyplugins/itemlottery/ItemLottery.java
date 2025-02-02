@@ -1,9 +1,11 @@
 package acctualyplugins.itemlottery;
 
+import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.queue.LotteryQueue;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import acctualyplugins.itemlottery.server.utils.Formatters;
 import acctualyplugins.itemlottery.server.utils.senders.Message;
 import acctualyplugins.itemlottery.server.utils.senders.Title;
+import acctualyplugins.itemlottery.server.utils.subcommands.QueueLottery;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import lombok.Getter;
@@ -33,10 +35,8 @@ public final class ItemLottery extends JavaPlugin {
      * Singleton instance of the ItemLottery plugin.
      * -- GETTER --
      *  Retrieves the singleton instance of the ItemLottery plugin.
-     *
-     * @return The singleton instance.
-
      */
+
     @Getter
     public static ItemLottery instance;
 
@@ -45,16 +45,16 @@ public final class ItemLottery extends JavaPlugin {
     private final CreateCooldownsFile createCooldownsFile = new CreateCooldownsFile();
     private final CreateLogsFile createLogsFile = new CreateLogsFile();
 
-
     // Static instances for message, title, and formatters
-    @Getter
-    private final Message message = new Message();
-    @Getter
-    private final Title title = new Title();
-    @Getter
-    private final Formatters formatters = new Formatters();
-    @Getter
-    private  LogManager logManager = new LogManager();
+
+    public final Formatters formatters = new Formatters();
+
+    public final Message message = new Message();
+
+    public final Title title = new Title();
+
+    public final LogManager logManager = new LogManager();
+
     /**
      * Retrieves the list of logs.
      *
@@ -82,14 +82,7 @@ public final class ItemLottery extends JavaPlugin {
         return this.adventure;
     }
 
-    /**
-     * Called when the plugin is loaded.
-     * Initializes the CommandAPI with verbose output.
-     */
-    @Override
-    public void onLoad() {
-        CommandAPI.onLoad(new CommandAPIBukkitConfig(this).verboseOutput(true));
-    }
+
 
     /**
      * Called when the plugin is enabled.
@@ -111,6 +104,18 @@ public final class ItemLottery extends JavaPlugin {
 
         // Register events
         eventRegistration();
+
+        LotteryQueue.checkLogsOnStartup();
+    }
+
+
+    /**
+     * Called when the plugin is loaded.
+     * Initializes the CommandAPI with verbose output.
+     */
+    @Override
+    public void onLoad() {
+        CommandAPI.onLoad(new CommandAPIBukkitConfig(this).verboseOutput(false));
     }
 
     /**
@@ -162,6 +167,7 @@ public final class ItemLottery extends JavaPlugin {
     private void eventRegistration() {
         // Register events
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new QueueLottery(), this);
     }
 
     /**

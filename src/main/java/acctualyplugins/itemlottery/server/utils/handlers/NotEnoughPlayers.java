@@ -28,10 +28,16 @@ public class NotEnoughPlayers {
      * @param player The player initiating the check.
      * @return True if there are enough players, false otherwise.
      */
-    public static boolean notEnoughPlayers(int WinnerCount, Player player) {
+    public static boolean notEnoughPlayers(int WinnerCount, Player player, int itemAmount) {
         if(Bukkit.getOnlinePlayers().isEmpty() || WinnerCount > Bukkit.getOnlinePlayers().size()) {
             message.sendMessageComponent(player,
                     getLanguageMessage.getLanguageMessage("NotEnoughOnlinePlayers",
+                            "LotteryCommandArgs"));
+            return false;
+        }
+        if (WinnerCount % 2 == 0 && itemAmount % 2 != 0) {
+            message.sendMessageComponent(player,
+                    getLanguageMessage.getLanguageMessage("MismatchWinnerItemCount",
                             "LotteryCommandArgs"));
             return false;
         }

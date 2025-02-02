@@ -5,9 +5,7 @@
     import acctualyplugins.itemlottery.ItemLottery;
     import acctualyplugins.itemlottery.server.utils.Formatters;
 
-<<<<<<< HEAD
-    import java.time.Duration;
-=======
+
 import java.time.Duration;
 
 /**
@@ -17,17 +15,7 @@ public class Title {
     /**
      * Formatter instance for formatting chat messages.
      */
-    private static final Formatters formatters = ItemLottery.getInstance().getFormatters();
->>>>>>> 339cc54c352526c350929d319ced8e0cccf49770
-
-    /**
-     * Utility class for sending titles to players in the lottery system.
-     */
-    public class Title {
-        /**
-         * Formatter instance for formatting chat messages.
-         */
-        private static final Formatters formatters = new Formatters();
+    private static final Formatters formatters = new Formatters();
 
         /**
          * Shows a title with specified durations to a player.
