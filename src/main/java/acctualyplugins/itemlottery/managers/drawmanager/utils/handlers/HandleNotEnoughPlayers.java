@@ -1,6 +1,7 @@
 package acctualyplugins.itemlottery.managers.drawmanager.utils.handlers;
 
 import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.drawmanager.tasks.CountDown;
 import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -30,7 +31,7 @@ public class HandleNotEnoughPlayers {
      * @param task         The task to be canceled.
      */
     public static boolean handleNotEnoughPlayers(Map<String, Object> serialized, Player lotteryMaker, BossBar bossBar,
-                                              BukkitTask task) {
+                                              CountDown task) {
         if(!Bukkit.getOnlinePlayers().isEmpty()) {
             new RemoveBossbar().removeBossbar(bossBar);
             Bukkit.broadcastMessage(cc(getLanguageMessage.getLanguageMessage("NotEnoughOnlinePlayers"

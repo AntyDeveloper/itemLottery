@@ -21,7 +21,7 @@ public class HistoryLottery {
     /**
      * Instance for sending messages to players.
      */
-    private final Message message = ItemLottery.getInstance().message;
+    private final Message message = new Message();
 
     /**
      * Shows the history of a lottery based on the log name.

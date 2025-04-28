@@ -44,10 +44,10 @@ public class CreateLotteryCommand {
                         String ticketPriceArg = (String) args.get("ticket price");
                         double ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : 0;
                         int timeInSeconds = TimeUtils.pareseTimeToSeconds((String) args.get("time <example: 10m>"));
-
+                        int delayInSeconds = TimeUtils.pareseTimeToSeconds(delay);
                         long timestamp = TimeUtils.parseDelayToTimestamp(delay);
-                        new CreateLottery().createLotteryCommand(player, timeInSeconds, priceCount, winnerCount,
-                            ticketsToLottery, ticketPrice, timestamp);
+                        new CreateLottery().createLottery(player, delayInSeconds, timeInSeconds, priceCount, winnerCount,
+                            ticketsToLottery, ticketPrice);
                     })
                 )
                     .withSubcommand(new CommandAPICommand("now")
@@ -68,9 +68,9 @@ public class CreateLotteryCommand {
                                 String ticketPriceArg = (String) args.get("ticket price");
                                 double ticketPrice = ticketPriceArg != null ? Integer.parseInt(ticketPriceArg) : 0;
                                 int timeInSeconds = TimeUtils.pareseTimeToSeconds((String) args.get("time <example: 10m>"));
-                                new CreateLottery().createLotteryCommand(player, timeInSeconds, priceCount, winnerCount,
-                                        ticketsToLottery, ticketPrice, 0);
-                            })
+                                new CreateLottery().createLottery(player, 0, timeInSeconds, priceCount, winnerCount,
+                                        ticketsToLottery, ticketPrice);
+                            }) // Zakładam, że to zamknięcie jakiegoś lambda lub anonimowej klasy// Zakładam, że to zamknięcie jakiegoś lambda lub anonimowej klasy
                     )
             )
                 .withSubcommand(new CommandAPICommand("buyticket")
@@ -93,14 +93,14 @@ public class CreateLotteryCommand {
                                 .withPermission("lottery.end")
                                 .executes((sender, args) -> {
                                     Player player = (Player) sender;
-                                    new EndLottery().forceEndLottery(player);
+                                    new EndLottery().cancelLottery(player);
                                 })
                         )
                         .withSubcommand(new CommandAPICommand("draw")
                                 .withPermission("lottery.end")
                                 .executes((sender, args) -> {
                                     Player player = (Player) sender;
-                                    new EndLottery().drawEndLottery(player);
+                                    new EndLottery().forceDraw(player);
                                 })
                         )
                 )
@@ -133,14 +133,14 @@ public class CreateLotteryCommand {
                         .withPermission("lottery.giveitem")
                         .withFullDescription("Command to summmon reward lottery item!")
                         .withArguments(new ListArgumentBuilder<Log>("logName").allowDuplicates(false)
-                                .withList(logs.stream()
-                                        .sorted(Comparator.comparing((Log log) -> LocalDateTime.parse(log.getLogName(),
-                                                        DateTimeFormatter.ofPattern("HH:mm/dd:MM:yy")))
-                                                .reversed())
-                                        .collect(Collectors.toList()))
-                                .withMapper(log -> log.getLogName().toLowerCase())
-                                .buildGreedy()
-                        )
+                        .withList(logs.stream() // 1. Pobiera listę obiektów Log
+                                .sorted(Comparator.comparing((Log log) -> LocalDateTime.parse(log.getLogName(),
+                                                DateTimeFormatter.ofPattern("HH:mm/dd:MM:yy")))
+                                        .reversed()) // 2. Sortuje je malejąco wg daty/czasu w nazwie
+                                .collect(Collectors.toList())) // 3. Tworzy listę posortowanych Logów
+                        .withMapper(log -> log.getLogName().toLowerCase()) // 4. Mapuje obiekt Log na jego nazwę (lowercase) dla PARSOWANIA i SUGESTII
+                        .buildGreedy() // 5. Ustawia argument jako "greedy"
+                )
                         .executes((sender, args) -> {
                             Player player = (Player) sender;
 

@@ -1,80 +1,104 @@
 package acctualyplugins.itemlottery.managers.drawmanager.tasks;
 
-import net.kyori.adventure.audience.Audience;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import acctualyplugins.itemlottery.ItemLottery;
-import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
-import acctualyplugins.itemlottery.server.utils.handlers.DrawHandlers;
-import acctualyplugins.itemlottery.server.utils.messages.Refactor;
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager; // Potrzebne dla REFACTOR i typu loterii?
+import acctualyplugins.itemlottery.managers.drawmanager.LotteryDrawingService;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component; // Potrzebny do BossBar.name()
+import org.bukkit.entity.Player; // Potrzebny do refaktoryzacji czatu
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Map;
+public class CountDown extends BukkitRunnable {
 
-import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.*;
+    private final ItemLottery plugin;
+    private final DrawManager drawManager; // lub LotteryDrawingService
+    private final String lotteryId; // Np. logName lub UUID
+    private final BossBar bossBar;
+    private final long endTimeMillis;
+    private final Player lotteryMaker; // Potrzebny do refaktoryzacji czatu
+    private final int winnersCount; // Potrzebny do performDraw
+    private final org.bukkit.inventory.ItemStack drawItem; // Potrzebny do performDraw
+    private final boolean ticketUse; // Potrzebny do określenia typu
 
-/**
- * Class responsible for managing the countdown task for the lottery draw.
- */
-public class CountDown {
+    public CountDown(ItemLottery plugin, DrawManager drawManager, String lotteryId, BossBar bossBar, long durationSeconds, Player lotteryMaker, int winnersCount, org.bukkit.inventory.ItemStack drawItem, boolean ticketUse) {
+        this.plugin = plugin;
+        this.drawManager = drawManager;
+        this.lotteryId = lotteryId;
+        this.bossBar = bossBar;
+        this.endTimeMillis = System.currentTimeMillis() + (durationSeconds * 1000);
+        this.lotteryMaker = lotteryMaker;
+        this.winnersCount = winnersCount;
+        this.drawItem = drawItem;
+        this.ticketUse = ticketUse;
+    }
 
-    private static final GetLanguageMessage getLanguageMessage = new GetLanguageMessage();
-    private final Refactor refactor = new Refactor();
+    @Override
+    public void run() {
+        long remainingMillis = endTimeMillis - System.currentTimeMillis();
+        long remainingSeconds = remainingMillis / 1000;
 
-    private int messageCounter = 0;
+        // Sprawdź, czy loteria nie została anulowana zewnętrznie (opcjonalne, zależy od logiki DrawManager)
+        // if (!drawManager.isLotteryActive(lotteryId)) { // Przykładowa metoda
+        //     this.cancel();
+        //     if (bossBar != null) {
+        //         drawManager.removeBossBar(lotteryId, bossBar); // Posprzątaj bossbar
+        //     }
+        //     return;
+        // }
 
-    /**
-     * Executes the countdown task for the lottery draw.
-     * Updates the boss bar with the remaining time and handles ticket purchase messages.
-     * When the countdown reaches zero, it triggers the draw handlers.
-     *
-     * @param serialized   The serialized data for the draw.
-     * @param WinnersCount The number of winners to be selected.
-     * @param player       The player who initiated the draw.
-     * @param TicketUse    Whether tickets are used in the draw.
-     * @param TicketPrice  The price of a ticket.
-     */
-    public void countdownTask(Map<String, Object> serialized, int WinnersCount, Player player,
-                              boolean TicketUse, double TicketPrice) {
-        int test = (int) (remainingTime - bossBar.progress() * remainingTime);
-        float progress = (float) test / remainingTime;
-        int messageInterval = 15;
+        if (remainingMillis <= 0) {
+            // CZAS SIĘ SKOŃCZYŁ
+            this.cancel(); // Zatrzymaj ten konkretny timer
 
-        if (remainingTime > 0) {
-            for (Player playerSendBar : Bukkit.getOnlinePlayers()) {
-                String BosBarTitle;
+            // Sprawdzenie stanu przed losowaniem
+            if (drawItem == null || lotteryMaker == null || bossBar == null) {
+                ItemLottery.getInstance().getLogger().severe("Lottery " + lotteryId + " ended but state is inconsistent! Cannot perform draw.");
+                // Tutaj logika resetowania może być bardziej skomplikowana,
+                // bo musimy wiedzieć, CO resetować dla TEJ loterii.
+                // DrawManager powinien mieć metodę do czyszczenia po konkretnej loterii.
+                // drawManager.cleanupFailedLottery(lotteryId, bossBar);
+                return;
+            }
 
-                BosBarTitle = getLanguageMessage.getLanguageMessage("BosBarTitle",
-                        "Lottery");
+            // Określ typ
+            DrawManager.LotteryType type = ticketUse ? DrawManager.LotteryType.TICKET : DrawManager.LotteryType.FREE;
+            ItemLottery.getInstance().getLogger().info("Countdown for lottery " + lotteryId + " finished. Initiating draw (Type: " + type + ")");
 
-                if (remainingTime >= 3600) {
-                    int hours = remainingTime / 3600;
-                    int minutes = (remainingTime % 3600) / 60;
-                    int seconds = remainingTime % 60;
-                    BosBarTitle = BosBarTitle.replace("%time%", hours + "h " + minutes + "m " + seconds + "s");
-                } else if (remainingTime >= 60) {
-                    int minutes = remainingTime / 60;
-                    int seconds = remainingTime % 60;
-                    BosBarTitle = BosBarTitle.replace("%time%", minutes + "m " + seconds + "s");
-                } else {
-                    BosBarTitle = BosBarTitle.replace("%time%", remainingTime + "s");
-                }
-                
-                if (TicketUse && messageCounter >= messageInterval) {
-                    BosBarTitle = "&9&lBuy a ticket for &f&l" + TicketPrice + "$ &8/&9lottery buy";
-                    if(messageCounter > messageInterval + 3) {
-                        messageCounter = 0;
-                    }
-                }
+            // Wywołaj usługę losowania - przekazujemy dane tej konkretnej loterii
+            // Zakładamy, że performDraw ukryje/usunie bossBar i anuluje zadanie (chociaż już je anulowaliśmy `this.cancel()`)
+            LotteryDrawingService.performDraw(
+                    DrawManager.getDrawItem(),
+                    winnersCount,
+                    lotteryMaker,
+                    bossBar,
+                    type,
+                    this // Przekazanie samego siebie jest rzadkie, zazwyczaj performDraw nie potrzebuje taska
+                    // Można usunąć ostatni argument z performDraw, jeśli nie jest potrzebny
+            );
 
-                Audience audience = ItemLottery.getInstance().adventure().player(playerSendBar);
-                bossBar.name(refactor.chatRefactor(BosBarTitle, playerSendBar));
-                bossBar.addViewer(audience);
+            // Resetowanie stanu w DrawManager powinno być wykonane przez performDraw
+            // lub wywołane przez nie po zakończeniu. Nie resetuj tutaj globalnego stanu!
+            // drawManager.handleLotteryCompletion(lotteryId); // Przykładowa metoda
+
+        } else {
+            // CZAS NADAL PŁYNIE - aktualizuj BossBar
+            if (bossBar != null) {
+                // Użyj DrawManager.REFACTOR lub przenieś logikę refaktoryzacji
+                Component newName = DrawManager.REFACTOR.chatRefactor(
+                        "&aLottery ends in: &e" + remainingSeconds + "s", lotteryMaker);
+                bossBar.name(newName);
+
+                // Aktualizuj postęp na bossbarze (opcjonalnie)
+                float progress = Math.max(0.0f, Math.min(1.0f, (float) remainingMillis / (float) (getInitialDurationMillis())));
                 bossBar.progress(progress);
             }
-            remainingTime--;
-            messageCounter++;
-        } else {
-            DrawHandlers.selectDrawManager(serialized, bossBar, WinnersCount, player, TicketUse);
         }
     }
+
+    // Metoda pomocnicza do obliczenia początkowego czasu trwania w milisekundach
+    private long getInitialDurationMillis() {
+
+        return 60 * 1000L; // Przykładowo 60 sekund
+    }
+
 }

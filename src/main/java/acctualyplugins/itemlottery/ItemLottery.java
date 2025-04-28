@@ -1,5 +1,6 @@
 package acctualyplugins.itemlottery;
 
+import acctualyplugins.itemlottery.managers.drawmanager.DrawManager;
 import acctualyplugins.itemlottery.managers.drawmanager.utils.tasks.queue.LotteryQueue;
 import acctualyplugins.itemlottery.managers.logmanager.LogManager;
 import acctualyplugins.itemlottery.server.utils.Formatters;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
  * Handles the initialization and shutdown of the plugin.
  */
 public final class ItemLottery extends JavaPlugin {
+    // Metoda do pobierania instancji pluginu
     /**
      * Singleton instance of the ItemLottery plugin.
      * -- GETTER --
@@ -44,16 +46,10 @@ public final class ItemLottery extends JavaPlugin {
     private final CreateConfigFile createConfigFile = new CreateConfigFile();
     private final CreateCooldownsFile createCooldownsFile = new CreateCooldownsFile();
     private final CreateLogsFile createLogsFile = new CreateLogsFile();
+    @Getter
+    private DrawManager drawManager;
 
-    // Static instances for message, title, and formatters
-
-    public final Formatters formatters = new Formatters();
-
-    public final Message message = new Message();
-
-    public final Title title = new Title();
-
-    public final LogManager logManager = new LogManager();
+    public LogManager logManager;
 
     /**
      * Retrieves the list of logs.
@@ -101,11 +97,12 @@ public final class ItemLottery extends JavaPlugin {
 
         // Register commands
         commandRegistration();
+        this.drawManager = new DrawManager(this); // Stwórz instancję DrawManager
 
         // Register events
         eventRegistration();
 
-        LotteryQueue.checkLogsOnStartup();
+        LotteryQueue.loadQueueFromFile();
     }
 
 

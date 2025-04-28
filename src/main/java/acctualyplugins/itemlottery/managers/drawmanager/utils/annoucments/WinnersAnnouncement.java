@@ -6,9 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import acctualyplugins.itemlottery.ItemLottery;
 import acctualyplugins.itemlottery.managers.languagemanager.GetLanguageMessage;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.cc;
-import static acctualyplugins.itemlottery.managers.drawmanager.DrawManager.task;
 
 /**
  * Utility class for announcing the winners of the lottery draw.
@@ -23,11 +23,39 @@ public class WinnersAnnouncement {
      * @param WinnersNameList A string containing the list of winners' names.
      */
     public static void announceWinners(String WinnersNameList) {
-        for (Player players : Bukkit.getOnlinePlayers()) {
-            players.sendTitle(cc(getLanguageMessage.getLanguageMessage("Title", "Lottery"))
-                    , cc("&9&l" + WinnersNameList + " "), 1, 100, 1);
-        }
+        // Podziel listę zwycięzców na tablicę
+        final String[] winners = WinnersNameList.split(",\\s*"); // Rozdzielaj po przecinku i opcjonalnych białych znakach
+
+        // Użyj BukkitRunnable zamiast Runnable
+        new BukkitRunnable() {
+            private int index = 0; // Indeks aktualnie wyświetlanego zwycięzcy
+
+            @Override
+            public void run() {
+                // Sprawdź, czy wyświetlono wszystkich zwycięzców
+                if (index >= winners.length) {
+                    this.cancel(); // Anuluj to zadanie (BukkitRunnable)
+                    return; // Zakończ wykonanie tej iteracji
+                }
+
+                // Pobierz nazwę bieżącego zwycięzcy (usuń ewentualne białe znaki na początku/końcu)
+                String currentWinner = winners[index].trim();
+
+                // Wyświetl tytuł aktualnemu zwycięzcy dla wszystkich graczy online
+                String titleMessage = cc(getLanguageMessage.getLanguageMessage("Title", "Lottery")); // Pobierz główny tytuł
+                String subtitleMessage = cc("&9&l &k" + currentWinner + " "); // Migający podtytuł z nazwą zwycięzcy
+
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    // Wyślij tytuł (sendTitle jest przestarzałe, lepiej użyć Adventure API, ale trzymamy się obecnego kodu)
+                    onlinePlayer.sendTitle(titleMessage, subtitleMessage, 1, 100, 1); // fadeIn=1 tick, stay=100 ticks (5s), fadeOut=1 tick
+                }
+
+                index++; // Przejdź do następnego zwycięzcy
+            }
+            // Uruchom zadanie: start natychmiastowy (0L), powtarzaj co 60 ticków (3 sekundy)
+        }.runTaskTimer(ItemLottery.getInstance(), 0L, 60L);
     }
+
 
     /**
      * Announces the winners to all online players with an animation.

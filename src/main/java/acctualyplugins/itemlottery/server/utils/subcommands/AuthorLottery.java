@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AuthorLottery {
     public AuthorLottery(Player player) {
-        Message message = ItemLottery.getInstance().message;
+        Message message = new Message();
 
         List<String> strings = Arrays.asList(
                 " ",

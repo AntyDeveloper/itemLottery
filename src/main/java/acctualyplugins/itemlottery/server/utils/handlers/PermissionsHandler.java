@@ -61,4 +61,11 @@ public class PermissionsHandler {
         }
         return true;
     }
+
+    public static class PermissionException extends Exception {
+        public PermissionException(String message) {
+            super(message);
+        }
+    }
+
 }

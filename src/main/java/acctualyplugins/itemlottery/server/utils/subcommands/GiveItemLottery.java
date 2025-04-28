@@ -1,6 +1,7 @@
 package acctualyplugins.itemlottery.server.utils.subcommands;
 
 import acctualyplugins.itemlottery.ItemLottery;
+import acctualyplugins.itemlottery.managers.drawmanager.LotteryLogData;
 import acctualyplugins.itemlottery.server.utils.handlers.PermissionsHandler;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
@@ -31,11 +32,9 @@ public class GiveItemLottery {
         /**
          * Instance for managing logs.
          */
-        LogManager logManager = ItemLottery.getInstance().logManager;
-        Log logToGive = logManager.getLog(logName);
-
+        LotteryLogData logToGive = LogManager.loadLogData(logName);
         // Convert the item stack map to a configuration section
-        ConfigurationSection itemSectionToGive = convertMapToConfigurationSection(logToGive.getItemStack());
+        ConfigurationSection itemSectionToGive = convertMapToConfigurationSection(logToGive.getSerializedItem());
 
         // Deserialize the item stack from the configuration section
         ItemStack itemToGive = ItemStack.deserialize(itemSectionToGive.getValues(false));
@@ -44,7 +43,7 @@ public class GiveItemLottery {
         player.getInventory().addItem(itemToGive);
 
         // Send a message to the player indicating the item has been added
-        Message message = ItemLottery.getInstance().message;
+        Message message = new Message();
         message.sendMessageComponent(player, "&aItem has been added!");
     }
 

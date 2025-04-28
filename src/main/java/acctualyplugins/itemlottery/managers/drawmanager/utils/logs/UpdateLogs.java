@@ -18,7 +18,7 @@ public class UpdateLogs {
      * @param WinnersNameList A string containing the list of winners' names.
      */
     public static void logWinners(String WinnersNameList) {
-        String logName = LogManager.lastLog.getName();
+        String logName = LogManager.lastLog.getLogName();
         ConfigurationSection logs = CreateLogsFile.get().getConfigurationSection("logs");
         assert logs != null;
         ConfigurationSection log = logs.getConfigurationSection(logName);
